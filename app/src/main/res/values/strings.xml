@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">WildWatch1</string>
+    <string name="send_test_notification">Send Test Notification</string>
+    <string name="trigger_alarm">Trigger Alarm</string>
+    <string name="report_suspicious_activity">Report Suspicious Activity</string>
+    <string name="precautionary_measures_information_goes_here">Precautionary Measures Information Goes Here</string>
+    <string name="welcome_please_choose_an_option">Welcome! Please choose an option</string>
+    <string name="signup">Signup</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="precautionary_measures">Precautionary Measures</string>
+    <string name="recently_detected">Recently Detected</string>
+    <string name="hardware_management">Hardware Management</string>
+    <string name="trend_analysis">Trend Analysis</string>
+    <string name="user_profile">User Profile</string>
+    <string name="live_stream">Live Stream</string>
+    <string name="notification_settings">Notification Settings</string>
+    <string name="contact_wildlife_department">Contact Wildlife Department</string>
+    <string name="welcome_to_wildwatch">Welcome to WildWatch!</string>
+    <string name="this_app_is_designed_to_help_ensure_the_safety_of_both_humans_and_wildlife_it_provides_real_time_detection_trend_analysis_and_precautionary_measures_to_minimize_conflicts_and_foster_coexistence">This app is designed to help ensure the safety of both humans and wildlife. It provides real-time detection, trend analysis, and precautionary measures to minimize conflicts and foster coexistence.</string>
+    <string name="open">Open Drawer</string>
+    <string name="close">Close Drawer</string>
+    <string name="menu">Menu</string>
+    <string name="precautionary_measures_to_minimize_wildlife_conflict_scroll_down_for_related_videos">Precautionary measures to minimize wildlife conflict. Scroll down for related videos.</string>
+</resources>
