@@ -24,4 +24,15 @@
     <string name="close">Close Drawer</string>
     <string name="menu">Menu</string>
     <string name="precautionary_measures_to_minimize_wildlife_conflict_scroll_down_for_related_videos">Precautionary measures to minimize wildlife conflict. Scroll down for related videos.</string>
+    <string name="your_report_will_help_authorities_respond_effectively_please_provide_accurate_information">Your report will help authorities respond effectively. Please provide accurate information.</string>
+    <string name="submit_report">Submit Report</string>
+    <string name="describe_the_activity">Describe the activity</string>
+    <string name="upload_evidence">Upload Evidence</string>
+    <string-array name="activity_types">
+        <item>Wildlife Spotted</item>
+        <item>Suspicious Human Activity</item>
+        <item>Illegal Poaching</item>
+        <item>Other</item>
+    </string-array>
+
 </resources>
