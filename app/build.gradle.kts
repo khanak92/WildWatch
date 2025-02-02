@@ -66,5 +66,12 @@ dependencies {
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")  // YouTube Player
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+    implementation ("com.google.firebase:firebase-database:20.3.0")
+    implementation ("com.google.firebase:firebase-auth:23.1.0")
+
+// ExoPlayer for RTSP Camera Stream
+    implementation (libs.exoplayer)
+    implementation (libs.exoplayer.v2190)
+
 }
 
