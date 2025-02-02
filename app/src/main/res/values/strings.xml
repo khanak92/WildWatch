@@ -28,6 +28,12 @@
     <string name="submit_report">Submit Report</string>
     <string name="describe_the_activity">Describe the activity</string>
     <string name="upload_evidence">Upload Evidence</string>
+    <string name="enter_camera_name">Enter Camera Name</string>
+    <string name="enter_ip_address_rtsp_url">Enter IP Address (RTSP URL)</string>
+    <string name="enter_camera_location">Enter Camera Location</string>
+    <string name="add_camera">Add Camera</string>
+    <string name="remove_camera">Remove Camera</string>
+    <string name="enter_serial_number">Enter Serial Number</string>
     <string-array name="activity_types">
         <item>Wildlife Spotted</item>
         <item>Suspicious Human Activity</item>
