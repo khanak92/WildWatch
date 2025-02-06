@@ -31,7 +31,7 @@ class MainMenu : AppCompatActivity() {
         }
 
         btnHardwareManagement.setOnClickListener {
-            startActivity(Intent(this, hardwareMgt::class.java))
+            startActivity(Intent(this, HardwareManagment::class.java))
         }
 
         btnTrendAnalysis.setOnClickListener {
