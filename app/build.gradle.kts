@@ -69,6 +69,17 @@ dependencies {
     implementation ("com.google.firebase:firebase-database:20.3.0")
     implementation ("com.google.firebase:firebase-auth:23.1.0")
 
+    //Model's dependencies
+    implementation ("org.tensorflow:tensorflow-lite:2.9.0")
+    implementation ("org.tensorflow:tensorflow-lite-support:0.4.3")
+    implementation ("com.google.firebase:firebase-database:20.2.2")
+    implementation ("org.pytorch:pytorch_android_lite:1.10.0")
+    implementation ("org.pytorch:pytorch_android_torchvision:1.10.0")
+    implementation(project(":opencv"))
+
+
+
+
 // ExoPlayer for RTSP Camera Stream
     implementation (libs.exoplayer)
     implementation (libs.exoplayer.v2190)

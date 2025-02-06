@@ -1,40 +1,54 @@
-@file:Suppress("DEPRECATION")
-
 package com.example.wildwatch1
 
-import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.media.AudioManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.ui.StyledPlayerView
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import org.opencv.android.CameraBridgeViewBase
+import org.opencv.android.OpenCVLoader
+import org.opencv.core.Mat
+import org.pytorch.Tensor
+import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
+import org.opencv.*
 
-class HardwareManagment : AppCompatActivity() {
+
+
+class HardwareManagment : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2 {
+
     private lateinit var edtSerialNumber: EditText
     private lateinit var edtCameraName: EditText
     private lateinit var edtIpAddress: EditText
     private lateinit var edtCameraLocation: EditText
     private lateinit var btnAddCamera: Button
     private lateinit var btnRemoveCamera: Button
-    private lateinit var playerView: StyledPlayerView
-    private var player: ExoPlayer? = null
+    private lateinit var database: FirebaseDatabase
 
-    private lateinit var database: DatabaseReference // Firebase Database Reference
-
-    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hardware_managment)
 
-        // Initialize Firebase Database Reference
-        database = FirebaseDatabase.getInstance().getReference("Cameras")
+        // Initialize Firebase
+        database = FirebaseDatabase.getInstance()
+
+        // Load YOLO Models
+        ModelHelper.loadModels(this)
+
+        // Initialize OpenCV
+        if (!OpenCVLoader.initDebug()) {
+            Toast.makeText(this, "OpenCV initialization failed!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "OpenCV loaded successfully!", Toast.LENGTH_SHORT).show()
+        }
 
         // Initialize UI Elements
         edtSerialNumber = findViewById(R.id.edtSerialNumber)
@@ -43,7 +57,6 @@ class HardwareManagment : AppCompatActivity() {
         edtCameraLocation = findViewById(R.id.edtCameraLocation)
         btnAddCamera = findViewById(R.id.btnAddCamera)
         btnRemoveCamera = findViewById(R.id.btnRemoveCamera)
-        playerView = findViewById(R.id.playerView)
 
         // Handle Add Camera Button Click
         btnAddCamera.setOnClickListener {
@@ -56,7 +69,6 @@ class HardwareManagment : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun addCamera() {
         val serialNumber = edtSerialNumber.text.toString().trim()
         val cameraName = edtCameraName.text.toString().trim()
@@ -69,18 +81,20 @@ class HardwareManagment : AppCompatActivity() {
         }
 
         // Get Current Date and Time
-        val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+        val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
         // Create a Camera Object
         val cameraData = Camera(serialNumber, cameraName, ipAddress, location, timestamp)
 
         // Store Data in Firebase
-        database.child(serialNumber).setValue(cameraData).addOnSuccessListener {
-            Toast.makeText(this, "Camera Added Successfully!", Toast.LENGTH_SHORT).show()
-            startRTSPStream(ipAddress) // Start RTSP Stream
-        }.addOnFailureListener {
-            Toast.makeText(this, "Failed to Add Camera", Toast.LENGTH_SHORT).show()
-        }
+        database.reference.child("Cameras").child(serialNumber).setValue(cameraData)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Camera Added Successfully!", Toast.LENGTH_SHORT).show()
+                startProcessing(ipAddress) // Start RTSP Stream & Processing
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to Add Camera", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun removeCamera() {
@@ -91,34 +105,110 @@ class HardwareManagment : AppCompatActivity() {
             return
         }
 
-        database.child(serialNumber).removeValue().addOnSuccessListener {
-            Toast.makeText(this, "Camera Removed Successfully!", Toast.LENGTH_SHORT).show()
-            stopRTSPStream() // Stop the camera stream
-        }.addOnFailureListener {
-            Toast.makeText(this, "Failed to Remove Camera", Toast.LENGTH_SHORT).show()
-        }
+        database.reference.child("Cameras").child(serialNumber).removeValue()
+            .addOnSuccessListener {
+                Toast.makeText(this, "Camera Removed Successfully!", Toast.LENGTH_SHORT).show()
+                stopProcessing() // Stop Processing
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to Remove Camera", Toast.LENGTH_SHORT).show()
+            }
     }
 
-    private fun startRTSPStream(rtspUrl: String) {
-        stopRTSPStream() // Stop any existing stream before starting a new one
+    override fun onCameraFrame(inputFrame: Mat?): Mat {
+        inputFrame?.let {
+            // Convert Frame to Tensor
+            val imageTensor = convertMatToTensor(it)
 
-        player = ExoPlayer.Builder(this).build().apply {
-            setMediaItem(MediaItem.Builder().setUri(rtspUrl).build()) // Use the latest MediaItem format
-            prepare()
-            playWhenReady = true
+            // Run Animal Detection Model
+            val animalOutput = ModelHelper.runAnimalDetection(imageTensor)
+
+            // Run Worker Face Detection Model
+            val workerOutput = ModelHelper.runWorkerFaceDetection(imageTensor)
+
+            // Check If Animal is Detected
+            if (animalOutput != null && detectAnimal(animalOutput)) {
+                handleDetection("Animal Detected", "Leopard", "Main Gate")
+            }
+
+            // Check If Unauthorized Worker is Detected
+            if (workerOutput != null && detectWorker(workerOutput)) {
+                handleDetection("Unauthorized Worker Detected", "Unknown Person", "South Zone")
+            }
         }
-
-        playerView.player = player
+        return inputFrame!!
     }
 
-    private fun stopRTSPStream() {
-        player?.release()
-        player = null
+    private fun convertMatToTensor(mat: Mat): Tensor {
+        // Convert OpenCV Mat to PyTorch Tensor (Simplified Example)
+        val buffer = ByteBuffer.allocate(mat.total().toInt() * mat.channels())
+        return Tensor.fromBlob(buffer, longArrayOf(1, 3, mat.rows().toLong(), mat.cols().toLong()))
+    }
+
+    private fun detectAnimal(output: Tensor): Boolean {
+        // Custom Logic to check if animal is detected
+        return true // Replace with actual model detection logic
+    }
+
+    private fun detectWorker(output: Tensor): Boolean {
+        // Custom Logic to check if unauthorized worker is detected
+        return true // Replace with actual model detection logic
+    }
+
+    private fun handleDetection(title: String, detectedType: String, location: String) {
+        // Get Current Date and Time
+        val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+
+        // Save Detection Data to Firebase
+        val detectionData = mapOf(
+            "timestamp" to timestamp,
+            "location" to location,
+            "detectedType" to detectedType
+        )
+        database.reference.child("Detections").push().setValue(detectionData)
+
+        // Trigger Alert Notification
+        triggerAlertNotification(title)
+    }
+
+    private fun triggerAlertNotification(message: String) {
+        val channelId = "wildwatch_alert"
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+        // Create Notification Channel (For Android 8+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, "WildWatch Alerts", NotificationManager.IMPORTANCE_HIGH)
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val notification = Notification.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("WildWatch Alert 🚨")
+            .setContentText(message)
+            .setPriority(Notification.PRIORITY_MAX)
+            .setAutoCancel(true)
+            .build()
+
+        notificationManager.notify(1, notification)
+
+        // Set System Volume to Maximum
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0)
+    }
+
+    private fun startProcessing(rtspUrl: String) {
+        Toast.makeText(this, "Processing Camera Feed...", Toast.LENGTH_SHORT).show()
+        // TODO: Start RTSP Stream and process frames using OpenCV
+    }
+
+    private fun stopProcessing() {
+        Toast.makeText(this, "Camera Disconnected. Stopping Processing.", Toast.LENGTH_SHORT).show()
+        // TODO: Stop processing the camera feed
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        stopRTSPStream()
+        stopProcessing()
     }
 }
 

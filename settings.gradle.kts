@@ -18,6 +18,8 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+include(":opencv")
+project(":opencv").projectDir = file("opencv")
 
 rootProject.name = "WildWatch1"
 include(":app")
