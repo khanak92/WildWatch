@@ -1,4 +1,7 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.wildwatch1
+
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -10,18 +13,16 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
-import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.OpenCVLoader
+import org.opencv.android.CameraBridgeViewBase
 import org.opencv.core.Mat
 import org.pytorch.Tensor
 import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.*
-import org.opencv.*
-
-
 
 class HardwareManagment : AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2 {
 
@@ -37,18 +38,15 @@ class HardwareManagment : AppCompatActivity(), CameraBridgeViewBase.CvCameraView
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hardware_managment)
 
-        // Initialize Firebase
-        database = FirebaseDatabase.getInstance()
-
-        // Load YOLO Models
-        ModelHelper.loadModels(this)
-
-        // Initialize OpenCV
+        // Ensure OpenCV is Loaded
         if (!OpenCVLoader.initDebug()) {
             Toast.makeText(this, "OpenCV initialization failed!", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, "OpenCV loaded successfully!", Toast.LENGTH_SHORT).show()
         }
+
+        // Initialize Firebase
+        database = FirebaseDatabase.getInstance()
 
         // Initialize UI Elements
         edtSerialNumber = findViewById(R.id.edtSerialNumber)
@@ -84,7 +82,7 @@ class HardwareManagment : AppCompatActivity(), CameraBridgeViewBase.CvCameraView
         val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
         // Create a Camera Object
-        val cameraData = Camera(serialNumber, cameraName, ipAddress, location, timestamp)
+        val cameraData = dataClass.Camera(serialNumber, cameraName, ipAddress, location, timestamp)
 
         // Store Data in Firebase
         database.reference.child("Cameras").child(serialNumber).setValue(cameraData)
@@ -115,7 +113,8 @@ class HardwareManagment : AppCompatActivity(), CameraBridgeViewBase.CvCameraView
             }
     }
 
-    override fun onCameraFrame(inputFrame: Mat?): Mat {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun onCameraFrame(inputFrame: Mat?): Mat {
         inputFrame?.let {
             // Convert Frame to Tensor
             val imageTensor = convertMatToTensor(it)
@@ -155,6 +154,7 @@ class HardwareManagment : AppCompatActivity(), CameraBridgeViewBase.CvCameraView
         return true // Replace with actual model detection logic
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun handleDetection(title: String, detectedType: String, location: String) {
         // Get Current Date and Time
         val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
@@ -171,18 +171,17 @@ class HardwareManagment : AppCompatActivity(), CameraBridgeViewBase.CvCameraView
         triggerAlertNotification(title)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun triggerAlertNotification(message: String) {
         val channelId = "wildwatch_alert"
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // Create Notification Channel (For Android 8+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, "WildWatch Alerts", NotificationManager.IMPORTANCE_HIGH)
-            notificationManager.createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(channelId, "WildWatch Alerts", NotificationManager.IMPORTANCE_HIGH)
+        notificationManager.createNotificationChannel(channel)
 
         val notification = Notification.Builder(this, channelId)
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.ic_hardware)
             .setContentTitle("WildWatch Alert 🚨")
             .setContentText(message)
             .setPriority(Notification.PRIORITY_MAX)
@@ -192,7 +191,7 @@ class HardwareManagment : AppCompatActivity(), CameraBridgeViewBase.CvCameraView
         notificationManager.notify(1, notification)
 
         // Set System Volume to Maximum
-        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0)
     }
 
@@ -213,10 +212,4 @@ class HardwareManagment : AppCompatActivity(), CameraBridgeViewBase.CvCameraView
 }
 
 // Data Class for Storing Camera Info in Firebase
-data class Camera(
-    val serialNumber: String,
-    val cameraName: String,
-    val ipAddress: String,
-    val location: String,
-    val timestamp: String
-)
+

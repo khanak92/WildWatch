@@ -4,17 +4,16 @@ plugins {
 
 android {
     namespace = "org.opencv"
-    compileSdk = 34  // Use your app's compileSdk version
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
-        @Suppress("DEPRECATION")
         targetSdk = 34
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false  // FIXED: Use "isMinifyEnabled" instead of "minifyEnabled"
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
