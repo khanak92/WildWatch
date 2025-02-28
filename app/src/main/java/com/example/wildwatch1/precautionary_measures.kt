@@ -19,7 +19,7 @@ class precautionary_measures : AppCompatActivity() {
     private val videoIds = listOf(
         "6DtPF9W3ejI",
         "9-Vc4xmTZKk",
-        "https://www.youtube.com/embed/9-Vc4xmTZKk?si=CikCxtzIUBu3UDP-"
+        "9-Vc4xmTZKk"
     )
 
     @SuppressLint("MissingInflatedId")
