@@ -91,4 +91,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //widget
+    implementation("androidx.appcompat:appcompat:1.6.1")
 }

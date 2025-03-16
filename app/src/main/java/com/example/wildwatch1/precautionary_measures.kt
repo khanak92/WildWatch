@@ -2,7 +2,9 @@ package com.example.wildwatch1
 
 import VideoAdapter
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -14,12 +16,19 @@ import androidx.recyclerview.widget.RecyclerView
 class precautionary_measures : AppCompatActivity() {
 
     private lateinit var videoRecyclerView: RecyclerView
+    private lateinit var btnVideos: Button
+    private lateinit var btnText: Button
 
-    //list fo videos
+    // List of YouTube video IDs
     private val videoIds = listOf(
-        "6DtPF9W3ejI",
-        "9-Vc4xmTZKk",
-        "9-Vc4xmTZKk"
+        "9-zvJyrEEDE",
+        "axcPoS2sF0E",
+        "XvW9CiBQgYE",
+        "829YuVH1dg8",
+        "3rizxfyHPxs",
+        "OMkEVX23BdM",
+        "7jac_K-XB5A",
+        "W3FaKz5WYAE"
     )
 
     @SuppressLint("MissingInflatedId")
@@ -27,6 +36,21 @@ class precautionary_measures : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_precautionary_measures)
+
+        // Initialize Buttons
+        btnVideos = findViewById(R.id.btnVideos)
+        btnText = findViewById(R.id.btnText)
+
+        // Handle Button Click to Switch Between Videos and Text
+        btnVideos.setOnClickListener {
+            // Reload the same activity (videos remain visible)
+            recreate()
+        }
+
+        btnText.setOnClickListener {
+            // Navigate to the Text-Based Precautionary Measures Activity
+            startActivity(Intent(this, precautionaryMeasures2::class.java))
+        }
 
         // Ensure edge-to-edge insets work correctly
         val mainView = findViewById<ConstraintLayout>(R.id.main)

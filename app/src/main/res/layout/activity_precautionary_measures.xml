@@ -7,19 +7,54 @@
     android:id="@+id/main"
     android:padding="16dp">
 
+    <!-- Button Container for Switching Between Videos and Text -->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/switchButtonsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp">
+
+        <!-- Videos Button -->
+        <Button
+            android:id="@+id/btnVideos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Videos"
+            android:backgroundTint="#FF8E3A"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:padding="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Text Button -->
+        <Button
+            android:id="@+id/btnText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Text"
+            android:backgroundTint="#FF8E3A"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:padding="8dp"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <!-- Top TextView for Precautionary Information -->
     <TextView
         android:id="@+id/txtPrecautionInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="@string/precautionary_measures_to_minimize_wildlife_conflict_scroll_down_for_related_videos"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switchButtonsContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- RecyclerView for YouTube Videos -->
     <androidx.recyclerview.widget.RecyclerView
@@ -29,6 +64,6 @@
         app:layout_constraintTop_toBottomOf="@id/txtPrecautionInfo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
