@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.messaging.FirebaseMessaging
 
 class precautionary_measures : AppCompatActivity() {
 
@@ -66,5 +67,12 @@ class precautionary_measures : AppCompatActivity() {
         videoRecyclerView = findViewById(R.id.videoRecyclerView)
         videoRecyclerView.layoutManager = LinearLayoutManager(this)
         videoRecyclerView.adapter = VideoAdapter(videoIds, lifecycle)
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if ( it.isSuccessful)
+            {
+                println("Token: ${it.result}")
+            }
+        }
     }
 }

@@ -50,7 +50,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="@string/precautionary_measures_to_minimize_wildlife_conflict_scroll_down_for_related_videos"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/background_dark"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/switchButtonsContainer"
         app:layout_constraintStart_toStartOf="parent"
