@@ -1,86 +1,85 @@
 package com.example.wildwatch1
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
-import java.io.IOException
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-class HardwareManagment : AppCompatActivity() {
+class HardwareManagement : AppCompatActivity() {
 
-    private lateinit var edtSerialNumber: EditText
-    private lateinit var edtCameraName: EditText
-    private lateinit var edtIpAddress: EditText
+    private lateinit var edtRtspLink: EditText
     private lateinit var edtCameraLocation: EditText
     private lateinit var btnAddCamera: Button
-    private lateinit var btnRemoveCamera: Button
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var cameraAdapter: CameraAdapter
+    private lateinit var database: DatabaseReference
 
-    private val pythonServerUrl = "http://192.168.1.100:5000" // Update with your actual server IP
-
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hardware_managment)
 
-        edtSerialNumber = findViewById(R.id.edtSerialNumber)
-        edtCameraName = findViewById(R.id.edtCameraName)
-        edtIpAddress = findViewById(R.id.edtIpAddress)
+        edtRtspLink = findViewById(R.id.edtRtspLink)
         edtCameraLocation = findViewById(R.id.edtCameraLocation)
         btnAddCamera = findViewById(R.id.btnAddCamera)
-        btnRemoveCamera = findViewById(R.id.btnRemoveCamera)
+        recyclerView = findViewById(R.id.recyclerView)
+
+
+        database = FirebaseDatabase.getInstance().getReference("Cameras")
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        cameraAdapter = CameraAdapter(mutableListOf()) { camera ->
+            removeCamera(camera) // ✅ Now passing function reference
+        }
+
+        recyclerView.adapter = cameraAdapter
 
         btnAddCamera.setOnClickListener {
-            sendCameraInfoToPython()
+            addCameraToFirebase()
+        }
+    }
+    private fun removeCamera(camera: Camera) {
+        database.child(camera.id).removeValue().addOnSuccessListener {
+            Toast.makeText(this, "Camera removed successfully", Toast.LENGTH_SHORT).show()
+            cameraAdapter.removeCamera(camera)
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed to remove camera", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun sendCameraInfoToPython() {
-        val serialNumber = edtSerialNumber.text.toString().trim()
-        val cameraName = edtCameraName.text.toString().trim()
-        val ipAddress = edtIpAddress.text.toString().trim()
-        val location = edtCameraLocation.text.toString().trim()
 
-        if (serialNumber.isEmpty() || cameraName.isEmpty() || ipAddress.isEmpty() || location.isEmpty()) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+    private fun addCameraToFirebase() {
+        val rtspLink = edtRtspLink.text.toString().trim()
+        val location = edtCameraLocation.text.toString().trim()
+        val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+
+        if (rtspLink.isEmpty() || location.isEmpty()) {
+            Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val jsonObject = JSONObject().apply {
-            put("serialNumber", serialNumber)
-            put("cameraName", cameraName)
-            put("ipAddress", ipAddress)
-            put("location", location)
+        val cameraId = database.push().key!!
+        val cameraData = Camera(cameraId, rtspLink, location, timestamp)
+
+        database.child(cameraId).setValue(cameraData).addOnSuccessListener {
+            Toast.makeText(this, "Camera added successfully", Toast.LENGTH_SHORT).show()
+            cameraAdapter.addCamera(cameraData)
+            edtRtspLink.text.clear()
+            edtCameraLocation.text.clear()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed to add camera", Toast.LENGTH_SHORT).show()
         }
-
-        val requestBody = jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())
-
-        val request = Request.Builder()
-            .url("$pythonServerUrl/start_detection")
-            .post(requestBody)
-            .build()
-
-        val client = OkHttpClient()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                runOnUiThread {
-                    Toast.makeText(this@HardwareManagment, "Failed to connect to Python server: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                runOnUiThread {
-                    if (response.isSuccessful) {
-                        Toast.makeText(this@HardwareManagment, "Camera added, detection started!", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this@HardwareManagment, "Server Error: ${response.message}", Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
-        })
     }
 }
+
+// Camera Data Model
+data class Camera(val id: String, val rtspLink: String, val location: String, val timestamp: String)
