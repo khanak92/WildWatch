@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
 
     <application
         android:allowBackup="true"
@@ -28,7 +31,7 @@
             android:name=".dialog_mute_unmute"
             android:exported="false" />
         <activity
-            android:name=".HardwareManagment"
+            android:name="HardwareManagement"
             android:exported="false" />
         <activity
             android:name=".item_video"

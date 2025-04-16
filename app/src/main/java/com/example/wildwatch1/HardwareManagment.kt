@@ -2,17 +2,25 @@ package com.example.wildwatch1
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import android.widget.*
+import androidx.annotation.OptIn
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MimeTypes
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.rtsp.RtspMediaSource
+import androidx.media3.ui.PlayerView
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.*
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
+
+
 
 class HardwareManagement : AppCompatActivity() {
 
@@ -20,8 +28,11 @@ class HardwareManagement : AppCompatActivity() {
     private lateinit var edtCameraLocation: EditText
     private lateinit var btnAddCamera: Button
     private lateinit var recyclerView: RecyclerView
-    private lateinit var cameraAdapter: CameraAdapter
+    private lateinit var playerView: PlayerView
+    private lateinit var player: ExoPlayer
     private lateinit var database: DatabaseReference
+    private val cameraList = mutableListOf<Camera>()
+    private lateinit var cameraAdapter: CameraAdapter
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,30 +43,40 @@ class HardwareManagement : AppCompatActivity() {
         edtCameraLocation = findViewById(R.id.edtCameraLocation)
         btnAddCamera = findViewById(R.id.btnAddCamera)
         recyclerView = findViewById(R.id.recyclerView)
-
+        playerView = findViewById(R.id.playerView)
 
         database = FirebaseDatabase.getInstance().getReference("Cameras")
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        cameraAdapter = CameraAdapter(mutableListOf()) { camera ->
-            removeCamera(camera) // ✅ Now passing function reference
+        cameraAdapter = CameraAdapter(cameraList) { camera ->
+            showDeleteConfirmationDialog(camera)
+            playRTSPStream(camera.rtspLink)
         }
-
         recyclerView.adapter = cameraAdapter
 
         btnAddCamera.setOnClickListener {
             addCameraToFirebase()
         }
-    }
-    private fun removeCamera(camera: Camera) {
-        database.child(camera.id).removeValue().addOnSuccessListener {
-            Toast.makeText(this, "Camera removed successfully", Toast.LENGTH_SHORT).show()
-            cameraAdapter.removeCamera(camera)
-        }.addOnFailureListener {
-            Toast.makeText(this, "Failed to remove camera", Toast.LENGTH_SHORT).show()
-        }
+
+        loadCamerasFromFirebase()
     }
 
+    private fun loadCamerasFromFirebase() {
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                cameraList.clear()
+                for (cameraSnapshot in snapshot.children) {
+                    val camera = cameraSnapshot.getValue(Camera::class.java)
+                    camera?.let { cameraList.add(it) }
+                }
+                cameraAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                showSnackbar("Failed to load cameras", false)
+            }
+        })
+    }
 
     private fun addCameraToFirebase() {
         val rtspLink = edtRtspLink.text.toString().trim()
@@ -63,23 +84,73 @@ class HardwareManagement : AppCompatActivity() {
         val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
         if (rtspLink.isEmpty() || location.isEmpty()) {
-            Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show()
+            showSnackbar("Please enter all fields", false)
             return
         }
 
-        val cameraId = database.push().key!!
+        val cameraId = database.push().key ?: return
         val cameraData = Camera(cameraId, rtspLink, location, timestamp)
 
         database.child(cameraId).setValue(cameraData).addOnSuccessListener {
-            Toast.makeText(this, "Camera added successfully", Toast.LENGTH_SHORT).show()
-            cameraAdapter.addCamera(cameraData)
-            edtRtspLink.text.clear()
-            edtCameraLocation.text.clear()
+            showSnackbar("Camera added successfully", true)
+            edtRtspLink.text?.clear()
+            edtCameraLocation.text?.clear()
+
+            playRTSPStream(rtspLink)
         }.addOnFailureListener {
-            Toast.makeText(this, "Failed to add camera", Toast.LENGTH_SHORT).show()
+            showSnackbar("Failed to add camera", false)
         }
+    }
+
+    private fun removeCamera(camera: Camera) {
+        database.child(camera.id).removeValue().addOnSuccessListener {
+            showSnackbar("Camera removed successfully", true)
+            cameraAdapter.removeCamera(camera)
+        }.addOnFailureListener {
+            showSnackbar("Failed to remove camera", false)
+        }
+    }
+
+    private fun showDeleteConfirmationDialog(camera: Camera) {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Camera")
+            .setMessage("Are you sure you want to remove this camera?")
+            .setPositiveButton("Yes") { _, _ -> removeCamera(camera) }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+
+    @UnstableApi
+    private fun playRTSPStream(rtspUrl: String) {
+        val mediaItem = MediaItem.fromUri(rtspUrl)
+
+        val mediaSource = RtspMediaSource.Factory().createMediaSource(mediaItem)
+
+        player = ExoPlayer.Builder(this).build()
+        playerView.player = player
+        player.setMediaSource(mediaSource)
+        player.prepare()
+        player.playWhenReady = true
+    }
+
+    private fun showSnackbar(message: String, success: Boolean) {
+        val rootView: View = findViewById(R.id.main)
+        val snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
+        snackbar.setBackgroundTint(
+            resources.getColor(
+                if (success) android.R.color.holo_green_light else android.R.color.holo_red_light,
+                theme
+            )
+        )
+        snackbar.show()
     }
 }
 
-// Camera Data Model
-data class Camera(val id: String, val rtspLink: String, val location: String, val timestamp: String)
+// ✅ Camera data model
+data class Camera(
+    val id: String = "",
+    val rtspLink: String = "",
+    val location: String = "",
+    val timestamp: String = ""
+)
