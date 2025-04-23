@@ -6,23 +6,35 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.content.Intent
+import android.widget.Button
+import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.ImageView
+import android.widget.TextView
 
 class recent_locations : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_recent_locations)
 
-        val mainView = findViewById<android.view.View>(R.id.main)
+        val backButton = findViewById<ImageView>(R.id.backButton)
+        val titleText = findViewById<TextView>(R.id.headerTitle)
+        val lastDetectedBtn = findViewById<Button>(R.id.btnLastDetected)
+        val mapsBtn = findViewById<Button>(R.id.btnMaps)
 
-        if (mainView != null) { // ✅ Prevent NullPointerException
-            ViewCompat.setOnApplyWindowInsetsListener(mainView) { v, insets ->
-                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-                insets
-            }
-        } else {
-            println("Error: View with ID 'main' not found in activity_recent_locations.xml")
+        backButton.setOnClickListener {
+            onBackPressed()
         }
-    }}
+
+        lastDetectedBtn.setOnClickListener {
+            // ✅ Use the correct activity class
+            startActivity(Intent(this, LastDetectionActivity::class.java))
+        }
+
+        mapsBtn.setOnClickListener {
+            startActivity(Intent(this, MapsActivity::class.java))
+        }
+
+        titleText.text = "Recently Detected"
+    }
+}

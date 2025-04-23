@@ -19,7 +19,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
-
+import android.util.Log
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class HardwareManagement : AppCompatActivity() {
@@ -34,6 +35,7 @@ class HardwareManagement : AppCompatActivity() {
     private val cameraList = mutableListOf<Camera>()
     private lateinit var cameraAdapter: CameraAdapter
 
+    @OptIn(UnstableApi::class)
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +62,8 @@ class HardwareManagement : AppCompatActivity() {
 
         loadCamerasFromFirebase()
     }
+
+
 
     private fun loadCamerasFromFirebase() {
         database.addValueEventListener(object : ValueEventListener {
@@ -145,6 +149,10 @@ class HardwareManagement : AppCompatActivity() {
         )
         snackbar.show()
     }
+
+
+
+
 }
 
 // ✅ Camera data model

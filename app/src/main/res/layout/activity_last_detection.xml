@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LastDetectionActivity">
+
+    <TextView
+        android:id="@+id/detectionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Detection will appear here"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/locationText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detectionText"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:textColor="#000" />
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/locationText"
+        android:layout_above="@id/fabSimulate" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSimulate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="24dp"
+        android:layout_alignParentEnd="true"
+        android:src="@android:drawable/ic_input_add" />
+</RelativeLayout>

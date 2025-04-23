@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.core:core-ktx:1.12.0")
+
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
@@ -77,6 +79,7 @@ dependencies {
 
     // Glide (image loading)
     implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation(libs.gms.play.services.maps)
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
     // TensorFlow Lite (for AI model inference)
@@ -94,6 +97,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
 }
 
 

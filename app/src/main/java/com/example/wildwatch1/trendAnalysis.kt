@@ -5,16 +5,30 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.widget.ImageView
+import android.widget.TextView
+
 
 class trendAnalysis : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_trend_analysis)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val backButton = findViewById<ImageView>(R.id.backButton)
+        val title = findViewById<TextView>(R.id.headerTitle)
+
+        backButton.setOnClickListener {
+            finish() // closes activity on back press
         }
+
+        // Optional: Logic to load actual graph if available
+        val graphPlaceholder = findViewById<TextView>(R.id.graphPlaceholder)
+        // graphPlaceholder.text = "Graph Loaded"
     }
 }
+
+
+
+
+
+
