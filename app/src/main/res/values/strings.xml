@@ -34,6 +34,11 @@
     <string name="add_camera">Add Camera</string>
     <string name="remove_camera">Remove Camera</string>
     <string name="enter_serial_number">Enter Serial Number</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_picture">Change Picture</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="wildwatch_u2014_protecting_wildlife_safeguarding_people">WildWatch — Protecting Wildlife, Safeguarding People</string>
+    <string name="image">Image</string>
     <string-array name="activity_types">
         <item>Wildlife Spotted</item>
         <item>Suspicious Human Activity</item>

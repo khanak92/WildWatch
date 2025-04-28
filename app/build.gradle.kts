@@ -19,6 +19,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -80,6 +81,7 @@ dependencies {
     // Glide (image loading)
     implementation("com.github.bumptech.glide:glide:4.15.1")
     implementation(libs.gms.play.services.maps)
+    implementation(libs.androidx.gridlayout)
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
     // TensorFlow Lite (for AI model inference)
@@ -98,7 +100,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation ("com.airbnb.android:lottie:6.1.0")
 }
 
 

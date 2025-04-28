@@ -8,6 +8,11 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyCrMJX4e-1RuYCmLrT3upCPJBxAzv_6yjg" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +24,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WildWatch1"
         tools:targetApi="31">
+        <activity
+            android:name=".AnimalDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TrendAnalysisActivity2"
+            android:exported="false" />
         <activity
             android:name=".MapsActivity"
             android:exported="false" />
@@ -60,13 +71,7 @@
             android:exported="false" />
         <activity
             android:name=".MainMenu"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".SignupActivity"
             android:exported="false" />
@@ -78,7 +83,13 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" /> <!-- Other activities -->
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".suspicious_activity"
             android:exported="false" />

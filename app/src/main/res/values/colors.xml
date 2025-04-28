@@ -4,4 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="orangeTheme">#FF8E3A</color>
     <color name="lightOrangeBackground">#FFF5E7</color>
+    <color name="primary">#FFA726</color>
+    <color name="primaryDark">#EF6C00</color>
+    <color name="appBackground">#ECECEC</color>
+
 </resources>

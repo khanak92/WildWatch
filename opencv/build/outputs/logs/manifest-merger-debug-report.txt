@@ -1,16 +1,16 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest10805529947303131684.xml:2:13-83
-INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest10805529947303131684.xml:2:13-83
+ADDED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest15795271088533092002.xml:2:13-83
+INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest15795271088533092002.xml:2:13-83
 	package
-		INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest10805529947303131684.xml
+		INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest15795271088533092002.xml
 	xmlns:android
-		ADDED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest10805529947303131684.xml:2:23-81
+		ADDED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest15795271088533092002.xml:2:23-81
 uses-sdk
-INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest10805529947303131684.xml reason: use-sdk injection requested
-INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest10805529947303131684.xml
-INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest10805529947303131684.xml
+INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest15795271088533092002.xml reason: use-sdk injection requested
+INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest15795271088533092002.xml
+INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest15795271088533092002.xml
 	android:targetSdkVersion
-		INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest10805529947303131684.xml
+		INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest15795271088533092002.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest10805529947303131684.xml
+		INJECTED from C:\Users\akali\Desktop\WildWatch1\opencv\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest15795271088533092002.xml

@@ -68,7 +68,7 @@ object NotificationUtils {
         context: Context,
         detectionType: String,
         latitude: String,
-        longitude: Double
+        longitude: String
     ) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit().apply {

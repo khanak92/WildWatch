@@ -31,7 +31,7 @@
             android:id="@+id/backButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_hardware"
+            android:src="@drawable/ic_main"
             app:tint="@android:color/white" />
 
         <TextView

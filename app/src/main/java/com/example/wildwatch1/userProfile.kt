@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import kotlin.collections.mapOf as mapOf1
+import kotlin.collections.mapOf
 
 class userProfile : AppCompatActivity() {
     private lateinit var imgProfilePicture: ImageView
@@ -109,31 +109,44 @@ class userProfile : AppCompatActivity() {
         imagePickerLauncher.launch(intent)
     }
 
+    // inside saveUserProfile()
     private fun saveUserProfile() {
         val user = auth.currentUser
         user?.let {
-            val name = edtName.text.toString()
-            val phone = edtPhoneNumber.text.toString()
+            val name = edtName.text.toString().trim()
+            val phone = edtPhoneNumber.text.toString().trim()
 
-            val userMap = mapOf1(
+            if (name.isEmpty() || phone.isEmpty()) {
+                Toast.makeText(this, "Name and phone cannot be empty", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            val userMap = mapOf(
                 "name" to name,
                 "phone" to phone
             )
 
+            // Update profile fields
             database.child(user.uid).updateChildren(userMap).addOnSuccessListener {
                 Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
             }
 
+            // Upload profile picture if selected
             imageUri?.let { uri ->
                 val storageRef = storage.reference.child("profile_pictures/${user.uid}.jpg")
-                val uploadTask = storageRef.putFile(uri)
-
-                uploadTask.addOnSuccessListener {
+                Toast.makeText(this, "Uploading image...", Toast.LENGTH_SHORT).show()
+                storageRef.putFile(uri).addOnSuccessListener {
                     storageRef.downloadUrl.addOnSuccessListener { url ->
                         database.child(user.uid).child("profilePictureUrl").setValue(url.toString())
+                        Toast.makeText(this, "Image uploaded", Toast.LENGTH_SHORT).show()
                     }
+                }.addOnFailureListener {
+                    Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
+
 }

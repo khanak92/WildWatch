@@ -44,25 +44,29 @@ class LastDetectionActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun loadLastDetection() {
-        lastDetection = prefs.getString("detection_type", null)
-        val lat = prefs.getFloat("latitude", 0f).toDouble()
-        val lng = prefs.getFloat("longitude", 0f).toDouble()
+        NotificationUtils.loadDetectionData(this) { detectionData ->
+            if (detectionData != null) {
+                lastDetection = detectionData["detectionType"] as String
+                val lat = detectionData["latitude"] as Double
+                val lng = detectionData["longitude"] as Double
+                location = LatLng(lat, lng)
 
-        if (lastDetection != null && (lat != 0.0 || lng != 0.0)) {
-            location = LatLng(lat, lng)
-            detectionText.text = "Last Detected Object: $lastDetection"
-            locationText.text = "Location: $location"
+                detectionText.text = "Last Detected Object: $lastDetection"
+                locationText.text = "Location: ($lat, $lng)"
 
-            if (::map.isInitialized) {
-                map.clear()
-                map.addMarker(MarkerOptions().position(location!!).title("Last Detection"))
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(location!!, 15f))
+                if (::map.isInitialized) {
+                    map.clear()
+                    map.addMarker(MarkerOptions().position(location!!).title("Last Detection"))
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(location!!, 15f))
+                }
+            } else {
+                detectionText.text = "No detection data available."
+                locationText.text = ""
             }
-        } else {
-            detectionText.text = "No detection data available."
-            locationText.text = ""
         }
     }
+
+
 
     private fun simulateDetection() {
         val editor = prefs.edit()

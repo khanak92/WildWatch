@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/ic_main"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:id="@+id/tvDetectionType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tiger"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lat: 37.77, Lng: -122.41" />
+
+    <TextView
+        android:id="@+id/tvDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apr 24, 2025 10:43 AM" />
+</LinearLayout>

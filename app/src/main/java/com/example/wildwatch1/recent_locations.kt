@@ -1,16 +1,11 @@
 package com.example.wildwatch1
 
-import android.annotation.SuppressLint
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import android.content.Intent
+import android.os.Bundle
 import android.widget.Button
-import androidx.constraintlayout.widget.ConstraintLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class recent_locations : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +22,6 @@ class recent_locations : AppCompatActivity() {
         }
 
         lastDetectedBtn.setOnClickListener {
-            // ✅ Use the correct activity class
             startActivity(Intent(this, LastDetectionActivity::class.java))
         }
 

@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".dialog_mute_unmute">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="24dp">
 
     <TextView
         android:id="@+id/txtMuteStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sound Status"
-        android:textColor="#000"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnToggleSound"
-        app:layout_constraintEnd_toEndOf="@+id/btnToggleSound"
-        app:layout_constraintStart_toStartOf="@+id/btnToggleSound"
-        tools:ignore="MissingConstraints" />
+        android:text="App Sound is Muted"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#000" />
 
     <Button
         android:id="@+id/btnToggleSound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Unmute"
         android:backgroundTint="#FF8E3A"
-        android:text="Toggle Sound"
-        android:textColor="#FFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textColor="#FFFFFF" />
+</LinearLayout>

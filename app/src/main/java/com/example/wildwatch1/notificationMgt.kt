@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
@@ -17,6 +18,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationCompat
+import android.view.animation.ScaleAnimation
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Animation
+
 
 class notificationMgt : AppCompatActivity() {
 
@@ -24,6 +29,9 @@ class notificationMgt : AppCompatActivity() {
     private lateinit var btnTestNotification: Button
     private lateinit var btnTestShare: Button
     private lateinit var btnChangeTimer: Button
+    private val PREFS_NAME = "WildWatchPrefs"
+    private val MUTE_KEY = "isMuted"
+    private lateinit var sharedPreferences: SharedPreferences
 
     private var notificationTimer = 120000L // Default 2 minutes in milliseconds
     private val timerOptions = arrayOf(120000L, 150000L, 180000L, 210000L, 240000L, 270000L, 300000L) // 2 min to 5 min (30s gap)
@@ -32,6 +40,7 @@ class notificationMgt : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification_mgt)
+        sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
         btnMuteUnmute = findViewById(R.id.btnMuteUnmute)
         btnTestNotification = findViewById(R.id.btnTestNotification)
@@ -66,15 +75,28 @@ class notificationMgt : AppCompatActivity() {
             ConstraintLayout.LayoutParams.WRAP_CONTENT,
             true
         )
+
+        // 🔄 Scale animation
+        val scale = ScaleAnimation(
+            0.7f, 1.0f, // X scale
+            0.7f, 1.0f, // Y scale
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        ).apply {
+            duration = 300
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        popupView.startAnimation(scale)
         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0)
 
         popupView.setOnClickListener {
-            popupWindow.dismiss() // Close when clicked anywhere
+            popupWindow.dismiss()
         }
 
-        // Mute or Unmute Sound
-        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        val isMuted = audioManager.ringerMode == AudioManager.RINGER_MODE_SILENT
+        // 🔇 Persistent mute state using SharedPreferences
+        val sharedPrefs = getSharedPreferences("WildWatchPrefs", Context.MODE_PRIVATE)
+        val isMuted = sharedPrefs.getBoolean("isMuted", false)
 
         val txtStatus = popupView.findViewById<TextView>(R.id.txtMuteStatus)
         val btnToggle = popupView.findViewById<Button>(R.id.btnToggleSound)
@@ -83,16 +105,17 @@ class notificationMgt : AppCompatActivity() {
         btnToggle.text = if (isMuted) "Unmute" else "Mute"
 
         btnToggle.setOnClickListener {
-            if (isMuted) {
-                audioManager.ringerMode = AudioManager.RINGER_MODE_NORMAL
-                Toast.makeText(this, "Sound Unmuted", Toast.LENGTH_SHORT).show()
-            } else {
-                audioManager.ringerMode = AudioManager.RINGER_MODE_SILENT
-                Toast.makeText(this, "Sound Muted", Toast.LENGTH_SHORT).show()
-            }
+            val newMuteState = !isMuted
+            sharedPrefs.edit().putBoolean("isMuted", newMuteState).apply()
+
+            val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager.ringerMode = if (newMuteState) AudioManager.RINGER_MODE_SILENT else AudioManager.RINGER_MODE_NORMAL
+
+            Toast.makeText(this, if (newMuteState) "Sound Muted" else "Sound Unmuted", Toast.LENGTH_SHORT).show()
             popupWindow.dismiss()
         }
     }
+
 
     // 2️⃣ Trigger Test Notification
     private fun triggerTestNotification() {

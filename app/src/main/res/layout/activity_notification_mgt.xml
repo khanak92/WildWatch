@@ -6,7 +6,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="24dp"
+    android:background="#FFF5E7"
     tools:context=".notificationMgt">
 
     <!-- Mute/Unmute Sound Button -->
@@ -15,12 +16,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Mute/Unmute Sound"
+        android:textAllCaps="false"
+        android:textSize="16sp"
         android:backgroundTint="#FF8E3A"
         android:textColor="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Test Notification Button -->
     <Button
@@ -28,12 +30,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Test Notification"
+        android:textAllCaps="false"
+        android:textSize="16sp"
         android:backgroundTint="#FF8E3A"
         android:textColor="#FFFFFF"
         app:layout_constraintTop_toBottomOf="@id/btnMuteUnmute"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginTop="16dp" />
 
     <!-- Test Data Sharing Button -->
     <Button
@@ -41,12 +45,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Test Data Sharing"
+        android:textAllCaps="false"
+        android:textSize="16sp"
         android:backgroundTint="#FF8E3A"
         android:textColor="#FFFFFF"
         app:layout_constraintTop_toBottomOf="@id/btnTestNotification"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginTop="16dp" />
 
     <!-- Change Notification Timer Button -->
     <Button
@@ -54,9 +60,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Change Notification Timer (2 min)"
+        android:textAllCaps="false"
+        android:textSize="16sp"
         android:backgroundTint="#FF8E3A"
         android:textColor="#FFFFFF"
         app:layout_constraintTop_toBottomOf="@id/btnTestShare"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
