@@ -1,19 +1,22 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- App Theme -->
-    <style name="Theme.WildWatch" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primaryDark</item>
-        <item name="colorAccent">@color/orangeTheme</item>
-        <item name="android:windowBackground">@color/appBackground</item>
-    </style>
 
-    <!-- Buttons Style -->
+
+
+    <!-- Styled Button -->
     <style name="StyledButton" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/primary</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="cornerRadius">16dp</item>
-        <item name="android:fontFamily">@font/poppins_bold</item> <!-- optional if you added fonts -->
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <!-- Custom Main Menu Button -->
+    <style name="Widget.Button.Custom" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/orangeTheme</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:elevation">6dp</item>
     </style>
 
 </resources>

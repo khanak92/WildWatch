@@ -2,17 +2,17 @@ package com.example.wildwatch1
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.messaging.FirebaseMessaging
-import android.util.Log
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.core.app.ActivityOptionsCompat
-import android.view.View
-
+import java.util.Calendar
 
 class MainMenu : AppCompatActivity() {
 
@@ -26,6 +26,7 @@ class MainMenu : AppCompatActivity() {
         R.drawable.lion_family4,
         R.drawable.lion_family5
     )
+
     private fun bounce(view: View) {
         view.animate()
             .scaleX(0.95f)
@@ -44,41 +45,43 @@ class MainMenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_menu)
+
         val rootView = findViewById<View>(R.id.drawerLayout)
-        val animation = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.fade_in_slide_up)
+        val animation = AnimationUtils.loadAnimation(this, R.anim.fade_in_slide_up)
         rootView.startAnimation(animation)
 
+        NotificationUtils.createNotificationChannel(this)
+
+        // ✅ Firebase FCM Token
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w("FCM", "Fetching FCM registration token failed", task.exception)
                 return@addOnCompleteListener
             }
             val token = task.result
-            //Toast.makeText(this, "Token: $token", Toast.LENGTH_SHORT).show()
             Log.d("FCM_TOKEN", token)
         }
 
-        NotificationUtils.createNotificationChannel(this)
-
+        // 👋 Personalized greeting
         greetingText = findViewById(R.id.greetingText)
-        greetingText.text = "Hi Mr. Areeb 👋"
+        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val greeting = when (hour) {
+            in 0..11 -> "Good Morning"
+            in 12..17 -> "Good Afternoon"
+            else -> "Good Evening"
+        }
+        greetingText.text = "$greeting, Mr. Areeb 👋"
 
+        // 📷 Carousel Setup
         viewPager = findViewById(R.id.imageCarousel)
-
-        val adapter = ImageCarouselAdapter(
-            context = this,
-            images = images,
-            onItemClick = { position ->
-                openAnimalInfo(position)
-            }
-        )
-        viewPager.adapter = adapter
+        viewPager.adapter = ImageCarouselAdapter(this, images) { position ->
+            openAnimalInfo(position)
+        }
         viewPager.offscreenPageLimit = 3
         viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
-        // 🔥 Apply cool zoom effect
         applyViewPagerAnimation()
 
+        // 🎯 Button Listeners
         setButtonListeners()
     }
 
@@ -107,47 +110,31 @@ class MainMenu : AppCompatActivity() {
             putExtra("animalImage", images[position])
         }
 
-        // 🎬 Shared element transition
         val imageView = viewPager.findViewWithTag<ImageView>("image_$position")
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
             this,
             imageView,
-            "animalImageTransition_$position" // transitionName must match!
+            "animalImageTransition_$position"
         )
         startActivity(intent, options.toBundle())
     }
 
     private fun setButtonListeners() {
-        findViewById<Button>(R.id.btnPrecautionaryMeasures).setOnClickListener {
-            bounce(it)
-            startActivity(Intent(this, precautionaryMeasures2::class.java))
+        val buttons = listOf(
+            R.id.btnPrecautionaryMeasures to precautionaryMeasures2::class.java,
+            R.id.btnRecentlyDetected to recent_locations::class.java,
+            R.id.btnHardwareManagement to HardwareManagement::class.java,
+            R.id.btnTrendAnalysis to TrendAnalysisActivity2::class.java,
+            R.id.btnUserProfile to userProfile::class.java,
+            R.id.btnLiveStream to liveStream::class.java,
+            R.id.btnNotificationSettings to notificationMgt::class.java
+        )
+
+        buttons.forEach { (id, target) ->
+            findViewById<Button>(id).setOnClickListener {
+                bounce(it)
+                startActivity(Intent(this, target))
+            }
         }
-        findViewById<Button>(R.id.btnRecentlyDetected).setOnClickListener {
-            bounce(it)
-            startActivity(Intent(this, recent_locations::class.java))
-        }
-        findViewById<Button>(R.id.btnHardwareManagement).setOnClickListener {
-            bounce(it)
-            startActivity(Intent(this, HardwareManagement::class.java))
-        }
-        findViewById<Button>(R.id.btnTrendAnalysis).setOnClickListener {
-            bounce(it)
-            startActivity(Intent(this, TrendAnalysisActivity2::class.java))
-        }
-        findViewById<Button>(R.id.btnUserProfile).setOnClickListener {
-            bounce(it)
-            startActivity(Intent(this, userProfile::class.java))
-        }
-        findViewById<Button>(R.id.btnLiveStream).setOnClickListener {
-            bounce(it)
-            startActivity(Intent(this, liveStream::class.java))
-        }
-        findViewById<Button>(R.id.btnNotificationSettings).setOnClickListener {
-            bounce(it)
-            startActivity(Intent(this, notificationMgt::class.java))
-        }
-        //findViewById<Button>(R.id.btnContactWildlifeDepartment).setOnClickListener {
-        //   startActivity(Intent(this, contactWildlifeDepartment::class.java))
-        //}
     }
 }

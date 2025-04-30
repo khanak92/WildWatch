@@ -1,7 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.WildWatch1" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+    <style name="Theme.WildWatch1" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="android:windowBackground">@drawable/splash_gradient</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">#EF6C00</item> <!-- primaryDark -->
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="windowActionBar">false</item>
     </style>
+
+
+
 </resources>

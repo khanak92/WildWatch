@@ -1,18 +1,28 @@
 package com.example.wildwatch1
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.animation.AlphaAnimation
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import androidx.core.content.ContextCompat
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        //installSplashScreen()
+       window.statusBarColor = ContextCompat.getColor(this, R.color.primaryDark)
+
+        super.onCreate(savedInstanceState)
+
+
+
+        setContentView(R.layout.activity_main)
         val tagline = findViewById<TextView>(R.id.taglineText)
 
         // Fade in the tagline after 1 second
@@ -29,5 +39,6 @@ class MainActivity : AppCompatActivity() {
             finish()
         }, 3000) // 3 seconds
     }
+
 
 }

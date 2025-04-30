@@ -103,6 +103,7 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.airbnb.android:lottie:6.1.0")
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }
 
 

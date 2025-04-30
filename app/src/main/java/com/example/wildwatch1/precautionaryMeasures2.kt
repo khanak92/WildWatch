@@ -1,43 +1,51 @@
 package com.example.wildwatch1
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 
+@Suppress("DEPRECATION")
 class precautionaryMeasures2 : AppCompatActivity() {
 
     private lateinit var btnText: Button
     private lateinit var btnVideos: Button
     private lateinit var contentContainer: FrameLayout
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.primaryDark)
+
         setContentView(R.layout.activity_precautionary_measures2)
 
         btnText = findViewById(R.id.btnText)
         btnVideos = findViewById(R.id.btnVideos)
         contentContainer = findViewById(R.id.contentContainer)
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.contentContainer, TextFragment())
-            .commit()
+        showTextFragment()
 
         btnText.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.contentContainer, TextFragment())
-                .commit()
+            showTextFragment()
         }
 
         btnVideos.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.contentContainer, VideoFragment())
-                .commit()
+            showVideoFragment()
         }
+    }
+
+    private fun showTextFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.contentContainer, TextFragment())
+            .commit()
+    }
+
+    private fun showVideoFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.contentContainer, VideoFragment())
+            .commit()
     }
 }

@@ -6,40 +6,70 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 class VideoFragment : Fragment() {
-    private val videoIds = listOf("9-zvJyrEEDE", "axcPoS2sF0E", "XvW9CiBQgYE","829YuVH1dg8","3rizxfyHPxs","OMkEVX23BdM","7jac_K-XB5A","W3FaKz5WYAE")
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val scroll = ScrollView(requireContext())
-        val layout = LinearLayout(requireContext())
-        layout.orientation = LinearLayout.VERTICAL
-        layout.setPadding(16, 16, 16, 16)
+    private val videoIds = listOf(
+        "9-zvJyrEEDE", "axcPoS2sF0E", "XvW9CiBQgYE", "829YuVH1dg8",
+        "3rizxfyHPxs", "OMkEVX23BdM", "7jac_K-XB5A", "W3FaKz5WYAE"
+    )
 
-        videoIds.forEach { id ->
-            val playerView = YouTubePlayerView(requireContext())
-            playerView.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                600
-            ).apply { setMargins(0, 16, 0, 16) }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val context = requireContext()
 
-            lifecycle.addObserver(playerView)
+        // Scroll container
+        val scrollView = ScrollView(context).apply {
+            setPadding(dp(16))
+        }
 
-            playerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    youTubePlayer.loadVideo(id, 0f)
+        // Vertical LinearLayout inside ScrollView
+        val layout = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+        }
+
+        // Add each YouTube player with consistent styling
+        videoIds.forEach { videoId ->
+            val playerView = YouTubePlayerView(context).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    dp(220)
+                ).apply {
+                    setMargins(0, dp(12), 0, dp(12))
                 }
-            })
+
+                // Optional: Rounded corners using ViewOutlineProvider (for modern look)
+                clipToOutline = true
+                background = resources.getDrawable(R.drawable.video_background, null)
+
+                // Lifecycle awareness
+                lifecycle.addObserver(this)
+
+                // Load video when ready
+                addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        youTubePlayer.loadVideo(videoId, 0f)
+                    }
+                })
+            }
 
             layout.addView(playerView)
         }
 
+        scrollView.addView(layout)
+        return scrollView
+    }
 
-        scroll.addView(layout)
-        return scroll
+    private fun dp(value: Int): Int {
+        val scale = resources.displayMetrics.density
+        return (value * scale).toInt()
     }
 }

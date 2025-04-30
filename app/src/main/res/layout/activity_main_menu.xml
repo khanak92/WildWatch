@@ -1,112 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/appBackground">
+        android:fillViewport="true">
 
-        <!-- Greeting -->
-        <TextView
-            android:id="@+id/greetingText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hi Mr. Areeb 👋"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:padding="16dp"
-            android:textColor="@color/primaryDark" />
-
-        <!-- Image Slider -->
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/imageCarousel"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_margin="8dp" />
-
-        <!-- Button Container -->
         <LinearLayout
-            android:id="@+id/buttonContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:background="@color/appBackground"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnPrecautionaryMeasures"
+            <!-- 👋 Greeting Text -->
+            <TextView
+                android:id="@+id/greetingText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Precautionary Measures"
-                android:backgroundTint="@color/primary"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp"/>
+                android:fontFamily="sans-serif"
+                android:padding="16dp"
+                android:text="Hi Mr. Areeb 👋"
+                android:textColor="@color/primaryDark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnRecentlyDetected"
+            <!-- 🖼️ Carousel -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/imageCarousel"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_margin="12dp" />
+
+            <!-- 🎛️ Buttons -->
+            <LinearLayout
+                android:id="@+id/buttonContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Recently Detected"
-                android:backgroundTint="@color/primary"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp"/>
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <Button
-                android:id="@+id/btnHardwareManagement"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hardware Management"
-                android:backgroundTint="@color/primary"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp"/>
+                <Button
+                    android:id="@+id/btnPrecautionaryMeasures"
+                    style="@style/Widget.Button.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Precautionary Measures" />
 
-            <Button
-                android:id="@+id/btnTrendAnalysis"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Trend Analysis"
-                android:backgroundTint="@color/primary"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp"/>
+                <Button
+                    android:id="@+id/btnRecentlyDetected"
+                    style="@style/Widget.Button.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Recently Detected" />
 
-            <Button
-                android:id="@+id/btnUserProfile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="User Profile"
-                android:backgroundTint="@color/primary"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp"/>
+                <Button
+                    android:id="@+id/btnHardwareManagement"
+                    style="@style/Widget.Button.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hardware Management" />
 
-            <Button
-                android:id="@+id/btnLiveStream"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Live Stream"
-                android:backgroundTint="@color/primary"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp"/>
+                <Button
+                    android:id="@+id/btnTrendAnalysis"
+                    style="@style/Widget.Button.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Trend Analysis" />
 
-            <Button
-                android:id="@+id/btnNotificationSettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Notification Settings"
-                android:backgroundTint="@color/primary"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp"/>
+                <Button
+                    android:id="@+id/btnUserProfile"
+                    style="@style/Widget.Button.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="User Profile" />
 
-            <Button
-                android:id="@+id/btnContactWildlifeDepartment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Contact Wildlife Department"
-                android:backgroundTint="@color/primary"
-                android:textColor="@android:color/white"/>
+                <Button
+                    android:id="@+id/btnLiveStream"
+                    style="@style/Widget.Button.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Live Stream" />
+
+                <Button
+                    android:id="@+id/btnNotificationSettings"
+                    style="@style/Widget.Button.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Notification Settings" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </androidx.drawerlayout.widget.DrawerLayout>

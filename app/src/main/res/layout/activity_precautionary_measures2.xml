@@ -1,39 +1,49 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appBackground"
     android:padding="16dp">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Precautionary Measures"
+        android:textColor="@color/primaryDark"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/switchButtonsContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnText"
+            style="@style/Widget.Button.Custom"
+            android:layout_marginEnd="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Text"
-            android:backgroundTint="#FF8E3A"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false"/>
+            android:text="Text" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnVideos"
+            style="@style/Widget.Button.Custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Videos"
-            android:backgroundTint="#FF8E3A"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false"
-            android:layout_marginStart="8dp"/>
+            android:text="Videos" />
     </LinearLayout>
 
     <FrameLayout
@@ -43,5 +53,7 @@
         app:layout_constraintTop_toBottomOf="@id/switchButtonsContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_card_bg" />
 </androidx.constraintlayout.widget.ConstraintLayout>

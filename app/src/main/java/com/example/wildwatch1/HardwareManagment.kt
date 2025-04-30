@@ -82,6 +82,7 @@ class HardwareManagement : AppCompatActivity() {
         })
     }
 
+    @OptIn(UnstableApi::class)
     private fun addCameraToFirebase() {
         val rtspLink = edtRtspLink.text.toString().trim()
         val location = edtCameraLocation.text.toString().trim()

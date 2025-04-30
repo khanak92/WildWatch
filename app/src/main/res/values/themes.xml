@@ -1,9 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.WildWatch1" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
 
-    <style name="Theme.WildWatch1" parent="Base.Theme.WildWatch1" />
+    <style name="Theme.WildWatch1" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="android:windowBackground">@drawable/splash_gradient</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">#FFA726</item> <!-- your orangeTheme -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="windowActionBar">false</item>
+
+    </style>
 </resources>
