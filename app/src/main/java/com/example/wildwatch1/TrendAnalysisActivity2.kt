@@ -2,12 +2,7 @@ package com.example.wildwatch1
 
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
@@ -15,12 +10,14 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 
-@Suppress("DEPRECATION")
 class TrendAnalysisActivity2 : AppCompatActivity() {
 
     private lateinit var btnViewTrends: Button
     private lateinit var btnGenerateGraph: Button
+    private lateinit var btnByMonth: Button
+    private lateinit var btnByYear: Button
     private lateinit var tabContent: FrameLayout
+    private lateinit var tableLayout: TableLayout
 
     private var isTrendViewActive = true
     private var isMonthly = true
@@ -31,75 +28,62 @@ class TrendAnalysisActivity2 : AppCompatActivity() {
 
         btnViewTrends = findViewById(R.id.btnViewTrend)
         btnGenerateGraph = findViewById(R.id.btnGenerateGraph)
+        btnByMonth = findViewById(R.id.btnByMonth)
+        btnByYear = findViewById(R.id.btnByYear)
         tabContent = findViewById(R.id.contentContainer)
 
         btnViewTrends.setOnClickListener {
             isTrendViewActive = true
+            findViewById<LinearLayout>(R.id.secondaryToggle).visibility = LinearLayout.VISIBLE
             showTrendTable()
         }
 
         btnGenerateGraph.setOnClickListener {
             isTrendViewActive = false
+            findViewById<LinearLayout>(R.id.secondaryToggle).visibility = LinearLayout.GONE
             showGraph()
         }
 
-        showTrendTable() // default view
+        btnByMonth.setOnClickListener {
+            isMonthly = true
+            populateTable(tableLayout)
+        }
+
+        btnByYear.setOnClickListener {
+            isMonthly = false
+            populateTable(tableLayout)
+        }
+
+        showTrendTable() // Default view
     }
 
     private fun showTrendTable() {
         tabContent.removeAllViews()
 
-        val layout = LinearLayout(this)
-        layout.orientation = LinearLayout.VERTICAL
-
-        val toggleLayout = LinearLayout(this)
-        toggleLayout.orientation = LinearLayout.HORIZONTAL
-        toggleLayout.setPadding(8, 8, 8, 8)
-
-        val btnMonth = Button(this).apply {
-            text = "By Month"
-            setBackgroundColor(resources.getColor(R.color.primary))
-            setTextColor(Color.WHITE)
-            setOnClickListener {
-                isMonthly = true
-                populateTable(tableLayout)
-            }
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
         }
-
-        val btnYear = Button(this).apply {
-            text = "By Year"
-            setBackgroundColor(resources.getColor(R.color.primary))
-            setTextColor(Color.WHITE)
-            setOnClickListener {
-                isMonthly = false
-                populateTable(tableLayout)
-            }
-        }
-
-        toggleLayout.addView(btnMonth)
-        toggleLayout.addView(btnYear)
-        layout.addView(toggleLayout)
 
         tableLayout = TableLayout(this)
         layout.addView(tableLayout)
 
         tabContent.addView(layout)
-
         populateTable(tableLayout)
     }
-
-    private lateinit var tableLayout: TableLayout
 
     private fun populateTable(tableLayout: TableLayout) {
         tableLayout.removeAllViews()
 
-        val headers = arrayOf("Country", "Detections", "Deaths")
+        val headers = arrayOf("Province", "Detections", "Deaths")
         val headerRow = TableRow(this)
         headers.forEach { title ->
-            val tv = TextView(this)
-            tv.text = title
-            tv.setTextColor(Color.BLACK)
-            tv.setPadding(16, 8, 16, 8)
+            val tv = TextView(this).apply {
+                text = title
+                setTextColor(Color.BLACK)
+                setPadding(16, 8, 16, 8)
+                textSize = 16f
+                setTypeface(null, android.graphics.Typeface.BOLD)
+            }
             headerRow.addView(tv)
         }
         tableLayout.addView(headerRow)
@@ -108,9 +92,10 @@ class TrendAnalysisActivity2 : AppCompatActivity() {
         data.forEach { row ->
             val tableRow = TableRow(this)
             row.forEach { cell ->
-                val tv = TextView(this)
-                tv.text = cell
-                tv.setPadding(16, 8, 16, 8)
+                val tv = TextView(this).apply {
+                    text = cell
+                    setPadding(16, 8, 16, 8)
+                }
                 tableRow.addView(tv)
             }
             tableLayout.addView(tableRow)
@@ -144,26 +129,22 @@ class TrendAnalysisActivity2 : AppCompatActivity() {
         tabContent.addView(lineChart)
     }
 
-    private fun getMonthlyData(): List<Array<String>> {
-        return listOf(
-            arrayOf("Pakistan", "0", "0"),
-            arrayOf("India", "1", "0"),
-            arrayOf("Africa", "0", "0"),
-            arrayOf("Bangladesh", "3", "0"),
-            arrayOf("Japan", "1", "0")
-        )
-    }
+    private fun getMonthlyData(): List<Array<String>> = listOf(
+        arrayOf("Panjab", "0", "0"),
+        arrayOf("Sindh", "1", "0"),
+        arrayOf("Balochistan", "0", "0"),
+        arrayOf("KPK", "3", "0"),
+        arrayOf("Kashmir", "1", "0")
+    )
 
-    private fun getYearlyData(): List<Array<String>> {
-        return listOf(
-            arrayOf("Pakistan", "10", "1"),
-            arrayOf("India", "15", "3"),
-            arrayOf("Africa", "100", "10"),
-            arrayOf("America", "40", "4"),
-            arrayOf("Canada", "150", "4"),
-            arrayOf("Sirilanka", "300", "17"),
-            arrayOf("Bangladesh", "50", "0"),
-            arrayOf("Japan", "2", "1")
-        )
-    }
+    private fun getYearlyData(): List<Array<String>> = listOf(
+        arrayOf("Panjab", "10", "1"),
+        arrayOf("Sindh", "15", "3"),
+        arrayOf("Balochistan", "100", "10"),
+        arrayOf("KPK", "40", "4"),
+        arrayOf("Kashmir", "150", "4"),
+        arrayOf("IIJOK", "300", "17"),
+        arrayOf("Coastal", "50", "0"),
+        arrayOf("Centre", "2", "1")
+    )
 }

@@ -3,6 +3,7 @@ package com.example.wildwatch1
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -11,13 +12,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import android.widget.TextView
 
 class LastDetectionActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
-    private var lastDetection: String? = null
-    private var location: LatLng? = null
     private lateinit var prefs: SharedPreferences
 
     private lateinit var detectionText: TextView
@@ -39,25 +37,23 @@ class LastDetectionActivity : AppCompatActivity(), OnMapReadyCallback {
         findViewById<FloatingActionButton>(R.id.fabSimulate).setOnClickListener {
             simulateDetection()
         }
-
-        loadLastDetection()
     }
 
     private fun loadLastDetection() {
         NotificationUtils.loadDetectionData(this) { detectionData ->
             if (detectionData != null) {
-                lastDetection = detectionData["detectionType"] as String
-                val lat = detectionData["latitude"] as Double
-                val lng = detectionData["longitude"] as Double
-                location = LatLng(lat, lng)
+                val detectionType = detectionData["detectionType"] as? String ?: "Unknown"
+                val lat = (detectionData["latitude"] as? Double) ?: 0.0
+                val lng = (detectionData["longitude"] as? Double) ?: 0.0
+                val location = LatLng(lat, lng)
 
-                detectionText.text = "Last Detected Object: $lastDetection"
-                locationText.text = "Location: ($lat, $lng)"
+                detectionText.text = "Last Detected Object: $detectionType"
+                locationText.text = "Location: (${lat.format(4)}, ${lng.format(4)})"
 
                 if (::map.isInitialized) {
                     map.clear()
-                    map.addMarker(MarkerOptions().position(location!!).title("Last Detection"))
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(location!!, 15f))
+                    map.addMarker(MarkerOptions().position(location).title("Last Detection: $detectionType"))
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
                 }
             } else {
                 detectionText.text = "No detection data available."
@@ -66,15 +62,13 @@ class LastDetectionActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-
-
     private fun simulateDetection() {
-        val editor = prefs.edit()
-        editor.putString("detection_type", "Tiger")
-        editor.putFloat("latitude", 37.7749f)
-        editor.putFloat("longitude", -122.4194f)
-        editor.apply()
-
+        prefs.edit().apply {
+            putString("detection_type", "Tiger")
+            putFloat("latitude", 37.7749f)
+            putFloat("longitude", -122.4194f)
+            apply()
+        }
         loadLastDetection()
     }
 
@@ -82,4 +76,7 @@ class LastDetectionActivity : AppCompatActivity(), OnMapReadyCallback {
         map = googleMap
         loadLastDetection()
     }
+
+    // Extension for formatting
+    private fun Double.format(digits: Int) = "%.${digits}f".format(this)
 }

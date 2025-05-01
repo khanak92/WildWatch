@@ -15,28 +15,33 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var lastDetection: String? = null
     private var location: LatLng? = null
     private lateinit var map: GoogleMap
+    private lateinit var detectionTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
+        detectionTextView = findViewById(R.id.detectionInfo)
+
         NotificationUtils.loadDetectionData(this) { detectionData ->
             if (detectionData != null) {
-                lastDetection = detectionData["detectionType"] as String
-                val lat = detectionData["latitude"] as Double
-                val lng = detectionData["longitude"] as Double
-                location = LatLng(lat, lng)
+                lastDetection = detectionData["detectionType"] as? String
+                val lat = detectionData["latitude"] as? Double
+                val lng = detectionData["longitude"] as? Double
 
-                // Initialize the map now that we have location data
-                val mapFragment = supportFragmentManager
-                    .findFragmentById(R.id.map) as SupportMapFragment
-                mapFragment.getMapAsync(this)
+                if (lat != null && lng != null) {
+                    location = LatLng(lat, lng)
 
-                findViewById<TextView>(R.id.detectionInfo).text =
-                    "Detected: $lastDetection at ($lat, $lng)"
+                    detectionTextView.text = "Detected: $lastDetection at ($lat, $lng)"
+
+                    val mapFragment = supportFragmentManager
+                        .findFragmentById(R.id.map) as SupportMapFragment
+                    mapFragment.getMapAsync(this)
+                } else {
+                    detectionTextView.text = "Invalid location data."
+                }
             } else {
-                findViewById<TextView>(R.id.detectionInfo).text =
-                    "No detection data available."
+                detectionTextView.text = "No detection data available."
             }
         }
     }
@@ -44,10 +49,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         location?.let {
-            val marker = MarkerOptions()
-                .position(it)
-                .title("Detected Location")
-            map.addMarker(marker)
+            map.clear()
+            map.addMarker(MarkerOptions().position(it).title("Detected Location"))
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 15f))
         }
     }

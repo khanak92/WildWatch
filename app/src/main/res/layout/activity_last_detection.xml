@@ -4,26 +4,45 @@
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF5E7"
     tools:context=".LastDetectionActivity">
 
+    <!-- Header -->
+    <TextView
+        android:id="@+id/headerTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="Last Detection Info"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="#FF8E3A"
+        android:background="@drawable/image_background" />
+
+    <!-- Detection Info -->
     <TextView
         android:id="@+id/detectionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Detection will appear here"
+        android:layout_below="@id/headerTitle"
         android:padding="16dp"
+        android:text="Detection will appear here"
         android:textSize="16sp"
-        android:textColor="#000" />
+        android:textColor="#333" />
 
+    <!-- Location Info -->
     <TextView
         android:id="@+id/locationText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/detectionText"
         android:padding="16dp"
+        android:text="Location"
         android:textSize="16sp"
-        android:textColor="#000" />
+        android:textColor="#333" />
 
+    <!-- Google Map -->
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -32,6 +51,7 @@
         android:layout_below="@id/locationText"
         android:layout_above="@id/fabSimulate" />
 
+    <!-- Simulate FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabSimulate"
         android:layout_width="wrap_content"
@@ -39,5 +59,6 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="24dp"
         android:layout_alignParentEnd="true"
-        android:src="@android:drawable/ic_input_add" />
+        android:contentDescription="Simulate Detection"
+        android:src="@drawable/ic_simulate" />
 </RelativeLayout>

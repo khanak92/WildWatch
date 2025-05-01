@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,14 +8,13 @@
     android:background="#FFF5E7"
     tools:context=".recent_locations">
 
-    <!-- Background Image -->
+    <!-- Top Gradient Background -->
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="280dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/back"
-        android:adjustViewBounds="true"
+        android:src="@drawable/splash_gradient"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -25,17 +25,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingTop="40dp"
+        android:paddingBottom="16dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
+        android:elevation="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/backButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_menu"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/user_pic"
             app:tint="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,26 +49,16 @@
             android:layout_height="wrap_content"
             android:text="Recently Detected"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@id/backButton"
-            app:layout_constraintEnd_toStartOf="@id/menuIcon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <ImageView
-            android:id="@+id/menuIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_menu"
-            app:tint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Buttons Section -->
+    <!-- Action Buttons -->
     <LinearLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="0dp"
@@ -75,28 +67,27 @@
         android:padding="24dp"
         app:layout_constraintTop_toBottomOf="@id/backgroundImage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <Button
             android:id="@+id/btnLastDetected"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:backgroundTint="#FF8E3A"
+            android:background="@drawable/button_background_orange"
             android:text="Last Detected"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:layout_marginBottom="16dp" />
+            android:elevation="15dp"
+            android:layout_marginBottom="20dp" />
 
         <Button
             android:id="@+id/btnMaps"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:backgroundTint="#FF8E3A"
+            android:elevation="15dp"
+            android:background="@drawable/button_background_orange"
             android:text="Maps"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:layout_marginBottom="16dp" />
+            android:textSize="18sp" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

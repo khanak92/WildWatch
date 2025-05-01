@@ -21,13 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_menu"
-            app:tint="@android:color/white" />
-
         <TextView
             android:id="@+id/tvHeader"
             android:layout_width="0dp"
@@ -38,12 +31,6 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center" />
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_main"
-            app:tint="@android:color/white" />
     </LinearLayout>
 
     <!-- First Toggle Row -->
@@ -78,14 +65,14 @@
             android:textAllCaps="false" />
     </LinearLayout>
 
-    <!-- Second Toggle Row (inside ViewTrend section) -->
+    <!-- Second Toggle Row -->
     <LinearLayout
         android:id="@+id/secondaryToggle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/primaryToggle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
