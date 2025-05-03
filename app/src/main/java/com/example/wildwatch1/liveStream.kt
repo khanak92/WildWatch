@@ -1,5 +1,7 @@
 package com.example.wildwatch1
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,5 +18,11 @@ class liveStream : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // Launch the dialer with a hardcoded number
+        val phoneNumber = "tel:03105538023"
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse(phoneNumber)
+        startActivity(intent)
     }
 }

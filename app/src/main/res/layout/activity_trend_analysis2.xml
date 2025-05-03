@@ -5,7 +5,7 @@
     android:id="@+id/trendAnalysisLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appBackground"
+    android:background="@drawable/back3"
     tools:context=".TrendAnalysisActivity2">
 
     <!-- Header -->
@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical"
-        android:background="@color/primaryDark"
+        android:background="#FF8328"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/primary"
+            android:backgroundTint="@color/primaryDark"
             android:text="View Trend"
             android:textColor="@android:color/white"
             android:textAllCaps="false" />
@@ -59,7 +59,7 @@
             android:id="@+id/btnGenerateGraph"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:backgroundTint="@color/primary"
+            android:backgroundTint="@color/primaryDark"
             android:text="Generate Graph"
             android:textColor="@android:color/white"
             android:textAllCaps="false" />
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/primary"
+            android:backgroundTint="@color/primaryDark"
             android:text="By Month"
             android:textColor="@android:color/white"
             android:textAllCaps="false" />
@@ -92,7 +92,7 @@
             android:id="@+id/btnByYear"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:backgroundTint="@color/primary"
+            android:backgroundTint="@color/primaryDark"
             android:text="By Year"
             android:textColor="@android:color/white"
             android:textAllCaps="false" />

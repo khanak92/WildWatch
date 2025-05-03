@@ -1,5 +1,6 @@
 package com.example.wildwatch1
 
+import VideoAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +16,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 class VideoFragment : Fragment() {
 
     private val videoIds = listOf(
-        "9-zvJyrEEDE", "axcPoS2sF0E", "XvW9CiBQgYE", "829YuVH1dg8",
-        "3rizxfyHPxs", "OMkEVX23BdM", "7jac_K-XB5A", "W3FaKz5WYAE"
+        "9-zvJyrEEDE" to "Wildlife Protection Basics", "axcPoS2sF0E" to "Wildlife Protection Basics", "XvW9CiBQgYE" to "Wildlife Protection Basics", "829YuVH1dg8" to "Wildlife Protection Basics",
+        "3rizxfyHPxs" to "Wildlife Protection Basics", "OMkEVX23BdM" to "Wildlife Protection Basics", "7jac_K-XB5A" to "Wildlife Protection Basics", "W3FaKz5WYAE" to "Wildlife Protection Basics",
     )
 
     override fun onCreateView(
@@ -30,6 +31,7 @@ class VideoFragment : Fragment() {
         val scrollView = ScrollView(context).apply {
             setPadding(dp(16))
         }
+
 
         // Vertical LinearLayout inside ScrollView
         val layout = LinearLayout(context).apply {
@@ -56,7 +58,7 @@ class VideoFragment : Fragment() {
                 // Load video when ready
                 addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
-                        youTubePlayer.loadVideo(videoId, 0f)
+                        youTubePlayer.loadVideo(videoId.toString(), 0f)
                     }
                 })
             }

@@ -7,65 +7,109 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    android:background="#FFF5E7"
+    android:background="@drawable/back1"
     tools:context=".notificationMgt">
 
-    <!-- Mute/Unmute Sound Button -->
-    <Button
-        android:id="@+id/btnMuteUnmute"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/notificationTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mute/Unmute Sound"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:backgroundTint="#FF8E3A"
+        android:text="Notification Management"
+        android:textSize="30sp"
+        android:textStyle="bold"
         android:textColor="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@id/btnMuteUnmute"/>
 
-    <!-- Test Notification Button -->
-    <Button
-        android:id="@+id/btnTestNotification"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMuteUnmute"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Test Notification"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:backgroundTint="#FF8E3A"
-        android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/btnMuteUnmute"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/orangeTheme"
+        android:icon="@drawable/ic_hardware"
+        android:text="Mute/Unmute Sound"
 
-    <!-- Test Data Sharing Button -->
-    <Button
-        android:id="@+id/btnTestShare"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="16dp"
+        app:elevation="4dp"
+        app:iconPadding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/notificationTitle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnTestNotification"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
+        android:backgroundTint="@color/orangeTheme"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:icon="@drawable/ic_hardware"
+        app:iconPadding="8dp"
+
+        android:text="Test Notification"
+        android:textSize="16sp"
+        app:cornerRadius="16dp"
+        app:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnMuteUnmute" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnTestShare"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="0dp"
+        android:backgroundTint="@color/orangeTheme"
+        android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:text="Test Data Sharing"
-        android:textAllCaps="false"
         android:textSize="16sp"
-        android:backgroundTint="#FF8E3A"
-        android:textColor="#FFFFFF"
+        android:icon="@drawable/ic_hardware"
+        app:iconPadding="8dp"
+
+        app:cornerRadius="16dp"
+        app:elevation="4dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/btnTestNotification"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Change Notification Timer Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnChangeTimer"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
+        android:backgroundTint="@color/orangeTheme"
+        android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:text="Change Notification Timer (2 min)"
-        android:textAllCaps="false"
         android:textSize="16sp"
-        android:backgroundTint="#FF8E3A"
-        android:textColor="#FFFFFF"
+        android:icon="@drawable/ic_hardware"
+        app:iconPadding="8dp"
+        app:cornerRadius="16dp"
+        app:elevation="4dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/btnTestShare"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/notificationdata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This screen lets you manage your WildWatch alerts. Use the Mute/Unmute button to control sound notifications, Test Notification to preview how alerts appear, Test Data Sharing to simulate sending detection info, and Change Notification Timer to adjust how often you're notified."
+        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeTimer" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

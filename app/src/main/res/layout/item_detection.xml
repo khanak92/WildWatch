@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="12dp"
-    android:background="@drawable/ic_main"
+    android:background="@drawable/lion"
     android:layout_margin="8dp">
 
     <TextView

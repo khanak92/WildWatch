@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF5E7"
+    android:background="@drawable/back3"
     tools:context=".recent_locations">
 
     <!-- Top Gradient Background -->
@@ -14,10 +14,10 @@
         android:layout_width="0dp"
         android:layout_height="280dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/splash_gradient"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/recent2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,15 +47,15 @@
             android:id="@+id/headerTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Recently Detected"
             android:textColor="@android:color/white"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:gravity="center"
-            app:layout_constraintStart_toEndOf="@id/backButton"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toEndOf="@id/backButton"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Action Buttons -->
@@ -65,27 +65,30 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="24dp"
-        app:layout_constraintTop_toBottomOf="@id/backgroundImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/backgroundImage"
+        app:layout_constraintVertical_bias="0.0">
 
         <Button
             android:id="@+id/btnLastDetected"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/button_background_orange"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/orangeTheme"
+            android:elevation="15dp"
             android:text="Last Detected"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:elevation="15dp"
-            android:layout_marginBottom="20dp" />
+            android:textSize="18sp" />
+
 
         <Button
             android:id="@+id/btnMaps"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:backgroundTint="@color/orangeTheme"
             android:elevation="15dp"
-            android:background="@drawable/button_background_orange"
             android:text="Maps"
             android:textColor="@android:color/white"
             android:textSize="18sp" />

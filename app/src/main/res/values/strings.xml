@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WildWatch1</string>
+    <string name="app_name">WildWatch</string>
     <string name="send_test_notification">Send Test Notification</string>
     <string name="trigger_alarm">Trigger Alarm</string>
     <string name="report_suspicious_activity">Report Suspicious Activity</string>

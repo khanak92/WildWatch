@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
+    android:background="@drawable/back1"
     android:layout_height="match_parent">
 
     <ScrollView
@@ -13,17 +14,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/appBackground"
+            android:background="@drawable/back3"
             android:orientation="vertical">
 
             <!-- 👋 Greeting Text -->
             <TextView
                 android:id="@+id/greetingText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:fontFamily="sans-serif"
                 android:padding="16dp"
+                android:background="@drawable/back1"
                 android:text="Hi Mr. Areeb 👋"
+                android:layout_marginTop="20dp"
                 android:textColor="@color/primaryDark"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -33,6 +36,7 @@
                 android:id="@+id/imageCarousel"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
+
                 android:layout_margin="12dp" />
 
             <!-- 🎛️ Buttons -->
@@ -42,11 +46,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
+                android:background="@drawable/back3"
                 android:padding="16dp">
 
                 <Button
                     android:id="@+id/btnPrecautionaryMeasures"
                     style="@style/Widget.Button.Custom"
+                    android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Precautionary Measures" />
@@ -54,6 +60,7 @@
                 <Button
                     android:id="@+id/btnRecentlyDetected"
                     style="@style/Widget.Button.Custom"
+                    android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Recently Detected" />
@@ -61,6 +68,7 @@
                 <Button
                     android:id="@+id/btnHardwareManagement"
                     style="@style/Widget.Button.Custom"
+                    android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Hardware Management" />
@@ -68,30 +76,29 @@
                 <Button
                     android:id="@+id/btnTrendAnalysis"
                     style="@style/Widget.Button.Custom"
+                    android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Trend Analysis" />
 
-                <Button
-                    android:id="@+id/btnUserProfile"
-                    style="@style/Widget.Button.Custom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="User Profile" />
 
-                <Button
-                    android:id="@+id/btnLiveStream"
-                    style="@style/Widget.Button.Custom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Live Stream" />
+
+
 
                 <Button
                     android:id="@+id/btnNotificationSettings"
                     style="@style/Widget.Button.Custom"
+                    android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Notification Settings" />
+                <Button
+                    android:id="@+id/btnLiveStream"
+                    style="@style/Widget.Button.Custom"
+                    android:backgroundTint="@color/orangeTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contact WIldlife Department" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
