@@ -12,14 +12,12 @@ class recent_locations : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recent_locations)
 
-        val backButton = findViewById<ImageView>(R.id.backButton)
+
         val titleText = findViewById<TextView>(R.id.headerTitle)
         val lastDetectedBtn = findViewById<Button>(R.id.btnLastDetected)
         val mapsBtn = findViewById<Button>(R.id.btnMaps)
 
-        backButton.setOnClickListener {
-            onBackPressed()
-        }
+
 
         lastDetectedBtn.setOnClickListener {
             startActivity(Intent(this, LastDetectionActivity::class.java))

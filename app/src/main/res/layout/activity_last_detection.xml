@@ -9,6 +9,7 @@
 
     <!-- Header -->
     <TextView
+        android:layout_marginTop="30dp"
         android:id="@+id/headerTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,5 +61,5 @@
         android:layout_margin="24dp"
         android:layout_alignParentEnd="true"
         android:contentDescription="Simulate Detection"
-        android:src="@drawable/ic_simulate" />
+        android:src="@drawable/refresh" />
 </RelativeLayout>

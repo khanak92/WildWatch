@@ -70,7 +70,7 @@
                     android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hardware Management " />
+                    android:text="Hardware Management 🧰" />
 
                 <Button
                     android:id="@+id/btnTrendAnalysis"
@@ -100,7 +100,7 @@
                     android:layout_height="70dp"
                     android:textAllCaps="true"
                     android:textStyle="bold"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:text="Contact WIldlife Department 📞" />
             </LinearLayout>
         </LinearLayout>

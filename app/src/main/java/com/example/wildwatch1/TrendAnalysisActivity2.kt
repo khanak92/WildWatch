@@ -81,7 +81,7 @@ class TrendAnalysisActivity2 : AppCompatActivity() {
                 text = title
                 setTextColor(Color.BLACK)
                 setPadding(16, 8, 16, 8)
-                textSize = 16f
+                textSize = 22f
                 setTypeface(null, android.graphics.Typeface.BOLD)
             }
             headerRow.addView(tv)
@@ -94,6 +94,8 @@ class TrendAnalysisActivity2 : AppCompatActivity() {
             row.forEach { cell ->
                 val tv = TextView(this).apply {
                     text = cell
+                    textSize = 18f
+                    setTextColor(Color.BLACK)
                     setPadding(16, 8, 16, 8)
                 }
                 tableRow.addView(tv)
@@ -115,7 +117,7 @@ class TrendAnalysisActivity2 : AppCompatActivity() {
         )
 
         val dataSet = LineDataSet(entries, "Detections by Month").apply {
-            color = Color.BLUE
+            color = Color.RED
             valueTextColor = Color.BLACK
             lineWidth = 2f
         }

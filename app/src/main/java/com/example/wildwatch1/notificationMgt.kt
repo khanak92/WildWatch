@@ -21,6 +21,7 @@ import androidx.core.app.NotificationCompat
 import android.view.animation.ScaleAnimation
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
+import android.provider.Settings
 
 
 class notificationMgt : AppCompatActivity() {
@@ -49,6 +50,7 @@ class notificationMgt : AppCompatActivity() {
 
         btnMuteUnmute.setOnClickListener {
             showMuteUnmuteDialog()
+            requestDoNotDisturbPermission(this)
         }
 
         btnTestNotification.setOnClickListener {
@@ -61,6 +63,13 @@ class notificationMgt : AppCompatActivity() {
 
         btnChangeTimer.setOnClickListener {
             changeNotificationTimer()
+        }
+    }
+    fun requestDoNotDisturbPermission(context: Context) {
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (!notificationManager.isNotificationPolicyAccessGranted) {
+            val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+            context.startActivity(intent)
         }
     }
 

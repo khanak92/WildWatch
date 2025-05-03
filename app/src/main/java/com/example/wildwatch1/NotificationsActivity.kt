@@ -1,5 +1,7 @@
 package com.example.wildwatch1
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -10,9 +12,18 @@ import androidx.core.view.WindowInsetsCompat
 class NotificationsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notifications)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_live_stream)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
-        val type = intent.getStringExtra("type")
-        Toast.makeText(this, "Opened from notification: $type", Toast.LENGTH_SHORT).show()
+        // Launch the dialer with a hardcoded number
+        val phoneNumber = "tel:03105538023"
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse(phoneNumber)
+        startActivity(intent)
     }
 }

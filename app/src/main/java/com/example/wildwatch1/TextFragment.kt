@@ -35,17 +35,17 @@ class TextFragment : Fragment() {
         }
 
         val texts = listOf(
-            "🔸 Keep a Safe Distance" to "Maintain distance and avoid feeding or touching animals.",
-            "🔸 Avoid Sudden Movements" to "Move calmly, avoid running or startling animals.",
-            "🔸 What to do and not do?" to "Wild animals generally avoid human contact, but if you do see an animal in the wild, maintain your distance. Don’t attempt to feed, catch, or pet a wild animal...",
-            "🔸 Diseases caused by attacks of wild animals?" to "Infections like rabies, leptospirosis, and bacterial wounds are common.",
-            "🔸 How to avoid areas merged with wildlife?" to "Avoid forest edges at night, follow posted warnings, and use wildlife-aware navigation tools.",
-            "🔸 How zoning of areas can reduce conflicts?" to "Urban planning with green buffers and alert systems helps reduce conflicts.",
-            "🔸 How to respond to a wild animal attack?" to "Stay calm, avoid eye contact, back away slowly, and never run.",
-            "🔸 Are wild animals scared of humans?" to "Generally yes, but habituation can reduce their fear. Never approach them.",
-            "🔸 Do not keep wildlife as pets" to "It's dangerous and often illegal. Wild animals belong in the wild.",
-            "🔸 Do not use the internet for wildlife care advice" to "Consult professionals or wildlife authorities instead.",
-            "🔸 How do I transport a wild animal?" to "Only trained professionals should do this. Contact wildlife rescue."
+            "⚪ Keep a Safe Distance" to "Maintain distance and avoid feeding or touching animals.",
+            "⚪ Avoid Sudden Movements" to "Move calmly, avoid running or startling animals.",
+            "⚪ What to do and not do?" to "Wild animals generally avoid human contact, but if you do see an animal in the wild, maintain your distance. Don’t attempt to feed, catch, or pet a wild animal...",
+            "⚪ Diseases caused by attacks of wild animals?" to "Infections like rabies, leptospirosis, and bacterial wounds are common.",
+            "⚪ How to avoid areas merged with wildlife?" to "Avoid forest edges at night, follow posted warnings, and use wildlife-aware navigation tools.",
+            "⚪ How zoning of areas can reduce conflicts?" to "Urban planning with green buffers and alert systems helps reduce conflicts.",
+            "⚪ How to respond to a wild animal attack?" to "Stay calm, avoid eye contact, back away slowly, and never run.",
+            "⚪ Are wild animals scared of humans?" to "Generally yes, but habituation can reduce their fear. Never approach them.",
+            "⚪ Do not keep wildlife as pets" to "It's dangerous and often illegal. Wild animals belong in the wild.",
+            "⚪ Do not use the internet for wildlife care advice" to "Consult professionals or wildlife authorities instead.",
+            "⚪ How do I transport a wild animal?" to "Only trained professionals should do this. Contact wildlife rescue."
         )
 
         for ((title, detail) in texts) {
@@ -53,9 +53,9 @@ class TextFragment : Fragment() {
             val titleView = TextView(context).apply {
                 text = title
                 setTextColor(Color.WHITE)
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 19f)
                 setTypeface(null, Typeface.BOLD)
-                setPadding(dp(16), dp(12), dp(16), dp(12))
+                setPadding(dp(17), dp(13), dp(17), dp(13))
                 background = ContextCompat.getDrawable(context, R.drawable.title_bg)
                 isClickable = true
             }
@@ -63,9 +63,9 @@ class TextFragment : Fragment() {
             // Detail TextView
             val detailView = TextView(context).apply {
                 text = detail
-                setTextColor(Color.DKGRAY)
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                setPadding(dp(16), dp(10), dp(16), dp(16))
+                setTextColor(Color.BLACK)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                setPadding(dp(17), dp(11), dp(17), dp(17))
                 visibility = View.GONE
                 background = ContextCompat.getDrawable(context, R.drawable.detail_bg)
             }

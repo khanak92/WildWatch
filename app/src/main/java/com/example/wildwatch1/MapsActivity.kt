@@ -17,7 +17,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     // Static location
     private val location = LatLng(33.781006732413246, 72.72217914055024)
-    private val detectionType = "Detection loc is"
+    private val detectionType = "Camera location is"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

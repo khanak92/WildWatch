@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:text="Trend Analysis"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:gravity="center" />
     </LinearLayout>
@@ -48,19 +48,21 @@
         <Button
             android:id="@+id/btnViewTrend"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="55dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/primaryDark"
             android:text="View Trend"
+            android:textSize="20sp"
             android:textColor="@android:color/white"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btnGenerateGraph"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="55dp"
             android:backgroundTint="@color/primaryDark"
             android:text="Generate Graph"
+            android:textSize="20sp"
             android:textColor="@android:color/white"
             android:textAllCaps="false" />
     </LinearLayout>
@@ -81,19 +83,21 @@
         <Button
             android:id="@+id/btnByMonth"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/primaryDark"
             android:text="By Month"
+            android:textSize="17sp"
             android:textColor="@android:color/white"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btnByYear"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:backgroundTint="@color/primaryDark"
             android:text="By Year"
+            android:textSize="17sp"
             android:textColor="@android:color/white"
             android:textAllCaps="false" />
     </LinearLayout>
