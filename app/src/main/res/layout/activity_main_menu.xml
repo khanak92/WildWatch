@@ -36,7 +36,6 @@
                 android:id="@+id/imageCarousel"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-
                 android:layout_margin="12dp" />
 
             <!-- 🎛️ Buttons -->
@@ -55,7 +54,7 @@
                     android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Precautionary Measures" />
+                    android:text="Precautionary Measures ⛔" />
 
                 <Button
                     android:id="@+id/btnRecentlyDetected"
@@ -63,7 +62,7 @@
                     android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Recently Detected" />
+                    android:text="Recently Detected 📸" />
 
                 <Button
                     android:id="@+id/btnHardwareManagement"
@@ -71,7 +70,7 @@
                     android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hardware Management" />
+                    android:text="Hardware Management " />
 
                 <Button
                     android:id="@+id/btnTrendAnalysis"
@@ -79,7 +78,7 @@
                     android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Trend Analysis" />
+                    android:text="Trend Analysis 📈" />
 
 
 
@@ -91,14 +90,18 @@
                     android:backgroundTint="@color/orangeTheme"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Notification Settings" />
+                    android:text="Notification Settings 🔔" />
                 <Button
                     android:id="@+id/btnLiveStream"
                     style="@style/Widget.Button.Custom"
-                    android:backgroundTint="@color/orangeTheme"
+                    android:backgroundTint="#F44336"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Contact WIldlife Department" />
+                    android:layout_marginTop="10dp"
+                    android:layout_height="70dp"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:text="Contact WIldlife Department 📞" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

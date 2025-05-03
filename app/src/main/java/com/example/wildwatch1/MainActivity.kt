@@ -5,17 +5,20 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.google.firebase.messaging.FirebaseMessaging
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //installSplashScreen()
+
        window.statusBarColor = ContextCompat.getColor(this, R.color.primaryDark)
 
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
-        }, 3000) // 3 seconds
+        }, 4000) // 3 seconds
     }
 
 

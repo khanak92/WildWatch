@@ -12,46 +12,32 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private var lastDetection: String? = null
-    private var location: LatLng? = null
     private lateinit var map: GoogleMap
     private lateinit var detectionTextView: TextView
+
+    // Static location
+    private val location = LatLng(33.781006732413246, 72.72217914055024)
+    private val detectionType = "Detection loc is"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
         detectionTextView = findViewById(R.id.detectionInfo)
+        detectionTextView.text = "Showing: $detectionType at (${location.latitude.format(4)}, ${location.longitude.format(4)})"
 
-        NotificationUtils.loadDetectionData(this) { detectionData ->
-            if (detectionData != null) {
-                lastDetection = detectionData["detectionType"] as? String
-                val lat = detectionData["latitude"] as? Double
-                val lng = detectionData["longitude"] as? Double
-
-                if (lat != null && lng != null) {
-                    location = LatLng(lat, lng)
-
-                    detectionTextView.text = "Detected: $lastDetection at ($lat, $lng)"
-
-                    val mapFragment = supportFragmentManager
-                        .findFragmentById(R.id.map) as SupportMapFragment
-                    mapFragment.getMapAsync(this)
-                } else {
-                    detectionTextView.text = "Invalid location data."
-                }
-            } else {
-                detectionTextView.text = "No detection data available."
-            }
-        }
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        location?.let {
-            map.clear()
-            map.addMarker(MarkerOptions().position(it).title("Detected Location"))
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 15f))
-        }
+        map.clear()
+        map.addMarker(MarkerOptions().position(location).title("Location: $detectionType"))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
     }
+
+    // Format to 4 decimal places
+    private fun Double.format(digits: Int) = "%.${digits}f".format(this)
 }
