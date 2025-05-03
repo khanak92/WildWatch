@@ -20,14 +20,14 @@ class MainMenu : AppCompatActivity() {
     private lateinit var greetingText: TextView
 
     private val images = listOf(
-        R.drawable.lion,
-        R.drawable.tiger,
-        R.drawable.leopard,
-        R.drawable.jaguar,
-        R.drawable.snow,
-        R.drawable.cheetah,
-        R.drawable.cougar,
-        R.drawable.clouded,
+        R.drawable.lionnew2,
+        R.drawable.tigernew2,
+        R.drawable.leopardnew2,
+        R.drawable.jaguarnew,
+        R.drawable.snownew2,
+        R.drawable.cheetahnew,
+        R.drawable.cougarnew,
+        R.drawable.cloudednew,
 
     )
 
@@ -95,8 +95,8 @@ class MainMenu : AppCompatActivity() {
     private fun openAnimalInfo(position: Int) {
         val animalNames = listOf("Lion", "Tiger", "Leopard", "Jaguar", "Snow Leopard","Cheetah", "Cougar", "Clouded Leopard")
         val animalDescriptions = listOf(
-            "The lion, often called the \"King of the Jungle,\" is a social big cat found in Africa and a small population in India's Gir Forest. Males are recognizable by their majestic manes, which range from blonde to black, while females are maneless and do most of the hunting. Lions live in prides, with females working together to take down prey like zebras and wildebeests. They are powerful but lack stamina, relying on short bursts of speed (up to 50 mph) and teamwork. Their roar can be heard up to 5 miles away, serving as a territorial warning. However, lions avoid confrontations with larger prey like buffaloes and elephants. To stay safe in lion territory, never run—instead, stand tall, make noise, and back away slowly. Habitat loss and human conflict threaten their survival.",
-            "The tiger is the largest big cat, with the Siberian tiger weighing up to 660 lbs. Known for their striking orange coats with black stripes (each pattern is unique), tigers are solitary hunters found across Asia. Unlike lions, they prefer dense forests and are excellent swimmers, often cooling off in water. Tigers ambush prey with a powerful pounce, crushing windpipes with a 1,050 psi bite force. However, they overheat quickly and avoid long chases. Attacks on humans are rare but can happen if tigers feel threatened or are starving. To avoid danger in tiger habitats, wear masks on the back of your head (tigers prefer ambushing from behind) and make loud noises. Poaching and deforestation have pushed tigers to near extinction.",
+            "The lion, called the \"King of the Jungle,\" is a social big cat found in Africa and India’s Gir Forest. Males have manes, while females, who do most of the hunting, are maneless. Lions live in prides and hunt prey like zebras and wildebeests. They rely on teamwork and short bursts of speed. Their roar can be heard 5 miles away. Lions avoid larger animals like buffaloes and elephants. Habitat loss and human conflict threaten them.",
+            "The tiger is the largest big cat, with Siberian tigers weighing up to 660 lbs. Tigers are solitary, excellent swimmers, and prefer dense forests. They ambush prey with a powerful pounce. Tigers overheat quickly and avoid long chases. Attacks on humans are rare but can happen when threatened. To stay safe, wear a mask on your back and make noise. Poaching and deforestation threaten their survival.",
             "Leopards are the most adaptable big cats, thriving in jungles, mountains, and even urban areas like Mumbai. Their golden coats with rosette patterns provide camouflage, while melanistic leopards (black panthers) are common in dense forests. Unlike lions, leopards are solitary and incredibly strong—able to drag prey twice their weight up trees to avoid scavengers. They are stealthy hunters, relying on surprise rather than speed. However, they often lose kills to lions or hyenas. In areas with leopards, avoid walking alone at night and secure livestock. Habitat destruction and poaching for their beautiful fur threaten their survival.",
             "The jaguar, the largest cat in the Americas, dominates the rainforests of the Amazon and Pantanal. With a stocky build and a coat covered in rosettes (some with spots inside), jaguars are apex predators known for their incredible bite force (1,500 psi)—enough to crush skulls. Unlike other big cats, they often kill by piercing the brain or spine. Jaguars are strong swimmers and hunt caimans, deer, and even anacondas. They are solitary and territorial, marking their domain with deep roars. Deforestation and hunting for their pelts have made them near-threatened. To avoid jaguars in the wild, stay on marked trails and avoid dense riverbanks at dawn/dusk.",
             "The elusive \"Ghost of the Mountains,\" the snow leopard, inhabits the high altitudes of the Himalayas and Central Asia. Its thick, gray-white fur with dark rosettes provides perfect camouflage against rocky slopes. Unlike other big cats, snow leopards cannot roar but communicate with chuffs and growls. They are incredible climbers, using their long tails for balance while leaping across cliffs. Preying on blue sheep and ibex, they rely on stealth rather than speed. Climate change and poaching for their fur and bones have left only about 4,000 in the wild. If you encounter one, consider yourself lucky—they rarely attack humans.",

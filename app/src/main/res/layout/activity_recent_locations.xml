@@ -12,9 +12,10 @@
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="0dp"
-        android:layout_height="280dp"
+        android:layout_height="380dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/recent2"
+        android:background="@drawable/back1"
+        android:src="@drawable/detect1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
@@ -38,12 +39,11 @@
             android:id="@+id/headerTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="Recently Detected"
             android:textColor="@color/primaryDark"
-            android:textSize="22sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,10 +68,10 @@
             android:id="@+id/btnLastDetected"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="12dp"
             android:backgroundTint="@color/orangeTheme"
             android:elevation="15dp"
-            android:text="Last Detected"
+            android:text="Last Detected 🔎"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
@@ -82,7 +82,7 @@
             android:layout_height="60dp"
             android:backgroundTint="@color/orangeTheme"
             android:elevation="15dp"
-            android:text="Maps"
+            android:text="Maps 🗺"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </LinearLayout>

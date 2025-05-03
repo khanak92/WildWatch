@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:text="Last Detection Info"
+        android:text="Last Detection Info 📝"
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"

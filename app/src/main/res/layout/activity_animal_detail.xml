@@ -34,7 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Animal Name"
-        android:textSize="26sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         android:fontFamily="sans-serif"
         android:textColor="@android:color/white"
