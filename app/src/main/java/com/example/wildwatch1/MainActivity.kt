@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //installSplashScreen()
-
        window.statusBarColor = ContextCompat.getColor(this, R.color.primaryDark)
 
         super.onCreate(savedInstanceState)

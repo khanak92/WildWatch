@@ -18,7 +18,6 @@ object NotificationUtils {
     private const val PREFS_NAME = "WildWatchPrefs"
     private const val MUTE_KEY = "isMuted"
 
-    // Create a high-importance notification channel (Android 8+)
     fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -35,7 +34,7 @@ object NotificationUtils {
         }
     }
 
-    // Show notification with optional click action
+
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     fun showNotification(context: Context, title: String, body: String, type: String) {
         if (getMuteStatus(context)) return
@@ -63,7 +62,7 @@ object NotificationUtils {
         NotificationManagerCompat.from(context).notify(1001, builder.build())
     }
 
-    // Save detection info for later retrieval
+
     fun saveDetectionData(
         context: Context,
         detectionType: String,
@@ -79,7 +78,6 @@ object NotificationUtils {
         }
     }
 
-    // Load last detection from SharedPreferences
     fun loadDetectionData(context: Context, callback: (Map<String, Any>?) -> Unit) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val type = prefs.getString("last_detection", null)
@@ -99,13 +97,13 @@ object NotificationUtils {
         }
     }
 
-    // Return true if mute is ON
+
     fun getMuteStatus(context: Context): Boolean {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         return prefs.getBoolean(MUTE_KEY, false)
     }
 
-    // Toggle mute preference
+
     fun toggleMute(context: Context) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val current = prefs.getBoolean(MUTE_KEY, false)

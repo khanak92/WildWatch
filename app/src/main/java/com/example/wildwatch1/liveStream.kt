@@ -20,7 +20,7 @@ class liveStream : AppCompatActivity() {
         }
 
         // Launch the dialer with a hardcoded number
-        val phoneNumber = "tel:03105538023"
+        val phoneNumber = "tel:03209872876"
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse(phoneNumber)
         startActivity(intent)

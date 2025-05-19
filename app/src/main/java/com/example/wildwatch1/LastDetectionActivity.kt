@@ -73,8 +73,8 @@ class LastDetectionActivity : AppCompatActivity(), OnMapReadyCallback {
         // For testing: pushes dummy data to Firebase
         val testData = mapOf(
             "detectionType" to "Tiger",
-            "latitude" to 33.7810324,
-            "longitude" to 72.7221775
+            "latitude" to 33.7445,
+            "longitude" to 72.7867
         )
         databaseRef.setValue(testData).addOnCompleteListener {
             loadLastDetection()

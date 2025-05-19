@@ -156,7 +156,7 @@ class HardwareManagement : AppCompatActivity() {
 
 }
 
-// ✅ Camera data model
+        //  Camera data
 data class Camera(
     val id: String = "",
     val rtspLink: String = "",

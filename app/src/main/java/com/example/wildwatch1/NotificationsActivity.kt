@@ -20,7 +20,6 @@ class NotificationsActivity : AppCompatActivity() {
             insets
         }
 
-        // Launch the dialer with a hardcoded number
         val phoneNumber = "tel:03105538023"
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse(phoneNumber)
