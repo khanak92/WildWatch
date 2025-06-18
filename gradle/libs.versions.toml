@@ -1,5 +1,5 @@
 [versions]
-agp = "8.9.2"
+agp = "8.10.1"
 dotlottieAndroid = "0.0.3"
 exoplayer = "2.19.1"
 exoplayerVersion = "2.19.0"
