@@ -23,9 +23,7 @@
         android:supportsRtl="true"
         tools:targetApi="31">
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCrMJX4e-1RuYCmLrT3upCPJBxAzv_6yjg" />
+
 
         <activity android:name=".AnimalDetailActivity" android:exported="false" />
         <activity android:name=".TrendAnalysisActivity2" android:exported="false" />
